@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* app styles */ 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+.app{
+  max-width: 3000px;
+  margin: 0 auto;
+}
+:root {
+  --primaryColor: #1dbf73;
+  --starColor : #ffb33e;
+  --primaryBG:#f5f5f5;
+}
+.clickable:active{
+  scale: 0.95;
+}
+a{
+  text-decoration: none;
+}
+li :not(.me){
+  list-style: none;
+}
+.borderr{
+  border: 1px solid red;
+}
+/* header styles */
+
+.active , .active2{
+  background-color: white;
+  transition: background-color  0.5s ease;
+}
+.active a , .active2 a{
+  color: rgb(62, 62, 62);
+}
+.active a :hover{
+  color: var(--primaryColor);
+  transition: all 0.5s ease;
+}
+
+.active .fiverr{
+  color: rgb(62, 62, 62);
+  transition: all 0.5s ease;
+}
+.active2{
+  animation: fadeIn 0.5s 1 ease;
+}
+
+/* Featured styles */
+.Featured{
+  background-image: url(https://fiverr-res.cloudinary.com/image/upload/q_auto,f_auto/v1/attachments/generic_asset/asset/d14871e2d118f46db2c18ad882619ea8-1599835783966/bg-hero-3-1792-x1.png);
+}
+/* Services styles */
+.borderBottom{
+  transition: all 0.5s ease;
+  width: 80px !important;
+  border-color:#1dbf73 !important;
+  border-width: 1px;
+}
+
+.add-gig-form label{
+  font-size: 20px;
+  font-weight: 600;
+}
+.add-gig-form input ,.add-gig-form  select ,.add-gig-form  textarea , .add-gig-form button{
+  padding: 15px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(187, 185, 185);
+  outline: none;
+}
+.add-gig-form input ,.add-gig-form select ,.add-gig-form textarea{
+border:  1px solid rgb(187, 185, 185);
+}
+.register_form label{
+  font-size: 17px;
+  font-weight: 600;
+}
+
+
+/* animation styles */
+
+@keyframes fadeIn {
+  0% {
+    transform:translateY(-10px);
+    height: 0;
+    opacity: 0;
+    background-color: transparent;
+  }
+  100% {
+    transform:translateY(0);
+    height: 100%;
+    opacity: 1;
+    background-color: white;
+  }
+}
+.itemClass{
+  width: 320px !important;
+}
+.itemWrapperClass {
+  width: 1300px !important;
+} 
+
