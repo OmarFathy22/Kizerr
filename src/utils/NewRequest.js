@@ -1,7 +1,7 @@
 import axios from "axios"
 
  const NewRequest = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://kizerrpi.onrender.com',
   withCredentials: true
 })
 export default NewRequest
