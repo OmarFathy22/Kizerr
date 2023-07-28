@@ -13,7 +13,7 @@ const Signin = () => {
     try{
       const res = await NewRequest.post("/login",{username,password})
       localStorage.setItem("currentUser", JSON.stringify(res.data))
-      Cookies.set('accessToken', 'unique_user_identifier');
+      Cookies.set('accessToken', 'unique_user_identifier', { path: '/' });
       navigate('/')
       console.log(res.data)
     } 
