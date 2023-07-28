@@ -96,7 +96,7 @@ const Navbar = () => {
     try{
        await NewRequest.post("/logout")
       localStorage.setItem("currentUser", JSON.stringify({}))
-      Cookies.remove('user_id');
+      Cookies.remove('accessToken');
       console.log("logged out")
       window.location.href = "/"
     }
