@@ -96,11 +96,10 @@ const Navbar = () => {
     try{
        await NewRequest.post("/logout")
       localStorage.setItem("currentUser", JSON.stringify({}))
-      Cookies.remove('accessToken');
+      Cookies.remove('accessToken' , {path:'/'});
       console.log("logged out")
-      setTimeout(() => {
-        window.location.href = "/"
-      }, 2000);
+      window.location.href = "/"
+      
     }
     catch(err){
       console.log(err)
