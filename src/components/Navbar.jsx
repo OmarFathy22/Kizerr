@@ -98,7 +98,9 @@ const Navbar = () => {
       localStorage.setItem("currentUser", JSON.stringify({}))
       Cookies.remove('accessToken');
       console.log("logged out")
-      window.location.href = "/"
+      setTimeout(() => {
+        window.location.href = "/"
+      }, 2000);
     }
     catch(err){
       console.log(err)
