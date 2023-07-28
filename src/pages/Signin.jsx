@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import NewRequest from '../utils/NewRequest';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 const Signin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +13,7 @@ const Signin = () => {
     try{
       const res = await NewRequest.post("/login",{username,password})
       localStorage.setItem("currentUser", JSON.stringify(res.data))
+      Cookies.set('accessToken', 'unique_user_identifier');
       navigate('/')
       console.log(res.data)
     } 

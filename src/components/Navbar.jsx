@@ -7,6 +7,7 @@ import { HiMenu } from "react-icons/hi";
 import { useMediaQuery } from "react-responsive";
 import NavbarSlick from "./NavbarSlick";
 import NewRequest from "../utils/NewRequest";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const sm_md = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -95,6 +96,7 @@ const Navbar = () => {
     try{
        await NewRequest.post("/logout")
       localStorage.setItem("currentUser", JSON.stringify({}))
+      Cookies.remove('user_id');
       console.log("logged out")
       window.location.href = "/"
     }
