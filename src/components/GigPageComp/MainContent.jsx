@@ -186,19 +186,17 @@ const AboutSellerBody = ({ seller }) => {
 };
 
 const CreateReview = ({ gig }) => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (newReview) => NewRequest.post("/reviews", newReview),
     onSuccess: () => {
-      queryClient.invalidateQueries("reviews")
+      queryClient.invalidateQueries("reviews");
     },
     onError: (error) => {
-      setError(error.response.data)
-    }
-
-    
-  }
-  )
+      // @ts-ignore
+      setError(error.response.data);
+    },
+  });
   const [hoveredStar, setHoveredStar] = useState(-1);
   const [selectedStar, setSelectedStar] = useState(0);
   const [desc, setDesc] = useState("");
@@ -213,10 +211,10 @@ const CreateReview = ({ gig }) => {
       country: JSON.parse(localStorage.getItem("currentUser")).country,
       img: JSON.parse(localStorage.getItem("currentUser")).img,
     };
-    setSelectedStar(0)
-    setDesc("")
-    mutation.mutate(newReview)
-  
+    setSelectedStar(0);
+    setDesc("");
+    // @ts-ignore
+    mutation.mutate(newReview);
   };
   const handleStarHover = (index) => {
     setHoveredStar(index);
@@ -230,9 +228,9 @@ const CreateReview = ({ gig }) => {
   };
   const handleDescChange = (e) => {
     setDesc(e.target.value);
-  }
+  };
   return (
-  <div>
+    <div>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-5 mt-[40px] w-[48%]"
@@ -261,48 +259,48 @@ const CreateReview = ({ gig }) => {
               />
             ))}
         </div>
-        <button className="bg-[#ffc108] text-white p-3 rounded-md">submit</button>
-      {error && <p className='text-red-500 text-center'>{error}</p>}
+        <button className="bg-[#ffc108] text-white p-3 rounded-md">
+          submit
+        </button>
+        {error && <p className="text-red-500 text-center">{error}</p>}
       </form>
-  </div>
+    </div>
   );
 };
 
 const MainContent = () => {
   const { id } = useParams();
-  const { isLoading: isLoadingGigs, errorGigs, data: gig } = useQuery(id, () =>
-    NewRequest(`gig/${id}`).then((res) => res.data)
+  const { isLoading: isLoadingGigs, error: errorGigs, data: gig } = useQuery(
+    id,
+    () => NewRequest(`gig/${id}`).then((res) => res.data)
   );
   const UserId = gig?.userId;
   const {
     isLoading: isLoadingUsers,
-    errorUsers,
+    error: errorUsers,
     data: seller,
   } = useQuery({
     queryKey: "userId",
     queryFn: () => NewRequest(`users/${UserId}`).then((res) => res.data),
     enabled: !!UserId,
-  }
-  );
+  });
   if (isLoadingUsers || isLoadingGigs) return <Loading />;
   if (errorUsers || errorGigs) return <h1>error</h1>;
-  const SELLER = {...seller};
-  console.log("SELLER", SELLER)
   return (
     <div className="ml-[10%] !relative  my-[100px] ">
-     {SELLER &&  
-      <div> 
-      <SideContent gig={gig} seller={seller} />
-      <HeaderContent gig={gig} seller={SELLER} />
-      <GigMedia gig={gig} />
-      <WhatPeopleSay gig={gig} />
-      <AboutGig gig={gig} />
-      <AboutSellerHeader gig={gig} seller={seller} />
-      <AboutSellerBody gig={gig} seller={seller} />
-      <Reviews />
-      <CreateReview gig={gig} />
-      
-      </div>}
+      {seller && (
+        <div>
+          <SideContent gig={gig} seller={seller} />
+          <HeaderContent gig={gig} seller={seller} />
+          <GigMedia gig={gig} />
+          <WhatPeopleSay gig={gig} />
+          <AboutGig gig={gig} />
+          <AboutSellerHeader seller={seller} />
+          <AboutSellerBody seller={seller} />
+          <Reviews />
+          <CreateReview gig={gig} />
+        </div>
+      )}
     </div>
   );
 };

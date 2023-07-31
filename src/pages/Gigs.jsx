@@ -5,16 +5,19 @@ import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useQuery } from "react-query";
 import NewRequest from "../utils/NewRequest";
-import Loading from "../components/Loading";
+import SkeletonLoading from "../components/SkeletonLoading";
+
 
 const Gigs = () => {
+
   const { search } = useLocation();
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(1000);
+  const [min, setMin] = useState("0");
+  const [max, setMax] = useState("1000");
   const [open, setOpen] = useState(false);
   const [sortby, setSortby] = useState("createdAt");
   const [bestOrPop, setBestOrPop] = useState("Newest");
-  const { isLoading, error, data, refetch } = useQuery(
+
+  const { isLoading,isFetching , error, data, refetch } = useQuery(
     "repoData",
     async () =>
       await NewRequest(
@@ -24,8 +27,7 @@ const Gigs = () => {
   useEffect(() => {
     refetch();
   }, [sortby]);
-  if (isLoading) return <Loading/>
-  if (error) console.log(error);
+  
   const apply = () => {
     refetch();
   };
@@ -110,9 +112,11 @@ const Gigs = () => {
           </div>
         </div>
       </div>
-      <ul className="flex flex-wrap gap-10 justify-center items-center ">
+    
+      <ul className={`flex flex-wrap gap-10 justify-center items-center ${isLoading || isFetching  ? 'mt-10' : '' }`}>
         {data?.map((item, index) => {
-          return <GigCard key={index} item={item} />;
+          if(isLoading || isFetching )return <SkeletonLoading/>
+          return <GigCard key={index} item={item}  />;
         })}
       </ul>
     </div>

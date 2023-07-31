@@ -2,12 +2,14 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { HiMenu } from "react-icons/hi";
+import {TfiWorld} from "react-icons/tfi";
 import { useMediaQuery } from "react-responsive";
 import NavbarSlick from "./NavbarSlick";
 import NewRequest from "../utils/NewRequest";
 import Cookies from "js-cookie";
+import {FiLogOut} from "react-icons/fi";
 
 const Navbar = () => {
   const sm_md = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -22,6 +24,7 @@ const Navbar = () => {
   const logoRef = useRef(null);
   const location = useLocation();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -47,28 +50,28 @@ const Navbar = () => {
     };
   }, []);
   const User = JSON.parse(localStorage.getItem("currentUser")) || {};
+  
   const FirstNavBar = [
     {
-      title:"Kizerr Business",
-      linkto:"/"
-    }
-    ,{
-      title:"Explore",
-      linkto:"/gigs"
-    }
-    ,{
-      title:"English",
-      linkto:"/"
-    }
-    ,{
-      title:"Become a Seller",
-      linkto:"/"
-    }
-    ,{
-      title:"Sign in",
-      linkto:"/signin"
+      title: "Kizerr Business",
+      linkto: "/",
     },
-  
+    {
+      title: "Explore",
+      linkto: "/gigs",
+    },
+    {
+      title: <h1 className="flex  items-center gap-1"><TfiWorld  className="mb-[2px] text-[13px]"/>English</h1>,
+      linkto: "/",
+    },
+    {
+      title: "Become a Seller",
+      linkto: "/",
+    },
+    {
+      title: "Sign in",
+      linkto: "/signin",
+    },
   ];
 
   const SellerMenu = [
@@ -88,43 +91,46 @@ const Navbar = () => {
       title: "Messages",
       linkto: "/messages",
     },
-    
   ];
   const MenuBuyer = [...SellerMenu.slice(2)];
-  const handleLogout = async() => {
-
-    try{
-       await NewRequest.post("/logout")
-      localStorage.setItem("currentUser", JSON.stringify({}))
-      Cookies.remove('accessToken' , {path:'/'});
-      console.log("logged out")
-      window.location.href = "/"
-      
+  const handleLogout = async () => {
+    try {
+      await NewRequest.post("/logout");
+      localStorage.setItem("currentUser", JSON.stringify({}));
+      Cookies.remove("accessToken", { path: "/" });
+      console.log("logged out");
+      window.location.href = "/";
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-    
-  }
+  };
   return (
     <div
       className={`
       
-      ${location.pathname === "/message/" + id && "hidden"}
-      fixed !z-[1000]  top-0 left-0  w-full  Navbar ${
+    
+      fixed !z-[1000]  top-0 left-0  w-full  Navbar 
+      ${
         active && location.pathname === "/"
           ? " active shadow-sm"
           : "bg-[transparent]"
-      } ${location.pathname !== "/" && "!relative !bg-white !text-black"} ${
-        (active2 || location.pathname !== "/") && "border-b"
-      }`}
+      } 
+      ${location.pathname !== "/" && "!relative !bg-white !text-black"}
+      ${(active2 || location.pathname !== "/") && "border-b"}
+      ${location.pathname === `/message/${id}` && "!hidden"}
+        
+        `}
     >
       <div
         className={`sm-md:px-[2%] px-[4%] flex gap-[40px]  justify-between items-center h-[80px] max-w-[3000px] mx-auto`}
       >
         <Link to={"/"} className=" h-[60px] flex items-center ">
           {/* <img src={fiverr_logo} alt="logo" /> */}
-          <h1 className={`text-white font-[900] lg:hidden text-[35px] mr-2 pt-2 ${(active || location.pathname !== "/") && "!text-[#555]"}`}>
+          <h1
+            className={`text-white font-[900] lg:hidden text-[35px] mr-2 pt-2 ${
+              (active || location.pathname !== "/") && "!text-[#555]"
+            }`}
+          >
             <HiMenu />
           </h1>
           <h1
@@ -140,21 +146,21 @@ const Navbar = () => {
           </span>
         </Link>
 
-
-
         {active2 && (
           <div className="flex items-center max-w-[700px]   flex-1  h-[45px] ">
             <input
               className="px-[15px] h-full border-[1px]  w-full sm-md:rounded-md lg:rounded-none  lg:rounded-l-md focus:outline-none sm-md:}"
-              placeholder={sm_md ? "Find Services" : "What Service are you looking for today?"}
+              placeholder={
+                sm_md
+                  ? "Find Services"
+                  : "What Service are you looking for today?"
+              }
             />
             <button className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]">
               <BsSearch />
             </button>
           </div>
         )}
-
-
 
         <ul className="flex gap-[30px] items-center ">
           {FirstNavBar.map((item, index) => {
@@ -163,10 +169,14 @@ const Navbar = () => {
                 className={`text-white font-semibold text-[17px] transition-all hover:text-[#1dbf73] ${
                   location.pathname !== "/" && "!relative !bg-white !text-black"
                 }  ${item.title !== "Sign in" && "hidden lg:block"}
+                ${Object.keys(User).length !== 0 && item.title === "Sign in"  && "hidden"}
                 `}
                 key={index}
               >
-                <Link to={item.linkto} className="hover:text-[var(--primaryColor)] transition-all">
+                <Link
+                  to={item.linkto}
+                  className="hover:text-[var(--primaryColor)] transition-all"
+                >
                   {item.title}
                 </Link>
               </li>
@@ -194,48 +204,55 @@ const Navbar = () => {
                 }}
               >
                 <img
-                  title={User.name}
+                  title={User?.name}
                   className="w-[42px] h-[42px] object-fill rounded-full"
-                  src={User.img || '/no_avatar.png'}
+                  src={User?.img || "/no_avatar.png"}
                   alt="user"
                 />
               </div>
               {open && (
                 <ul
                   ref={menuRef}
-                  className="absolute top-[65px] right-0 w-[200px] z-[1000] rounded-md px-[10px] py-2 bg-white border-[1px] border-gray-300"
+                  className="absolute top-[62px] right-0 w-[200px] z-[1000] rounded-md   bg-white border-[1px] border-gray-300"
                 >
-                  {User.isSeller 
+                  <li className=" flex  justify-start items-center gap-2 text-[#333] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer  p-2">
+                    <img className="h-[30px] w-[30px] rounded-full" src={User?.img || "/no_avatar.png"} alt="img" /> 
+                    <h1>  {User.username}</h1>
+                  </li>
+                  {User.isSeller
                     ? SellerMenu.map((item, index) => {
                         return (
-                          <li key={index} className="text-[black]">
-                            <Link
-                              onClick={() => {
-                                setOpen(false);
-                              }}
-                              to={item?.linkto}
-                            >
-                              {item?.title}
-                            </Link>
+                          <li
+                            onClick={() => {
+                              setOpen(false);
+                              navigate(item?.linkto);
+                            }}
+                            key={index}
+                            className="text-[#555] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer p-2  "
+                          >
+                            {item?.title}
                           </li>
                         );
                       })
                     : MenuBuyer.map((item, index) => {
                         return (
-                          <li key={index}>
-                            <Link
-                              onClick={() => {
-                                setOpen(false);
-                              }}
-                              to={item?.linkto}
-                            >
-                              {item?.title}
-                            </Link>
+                          <li
+                            onClick={() => {
+                              setOpen(false);
+                              navigate(item?.linkto);
+                            }}
+                            key={index}
+                            className="text-[#333] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer p-2"
+                          >
+                            {item?.title}
                           </li>
                         );
                       })}
-                  <button onClick={handleLogout}>
-                    Logout
+                  <button
+                    className="text-red-500 flex justify-start items-center gap-2  hover:bg-gray-100 border-b font-bold transition-all text-center p-2 w-full"
+                    onClick={handleLogout}
+                  >
+                    Sign out <FiLogOut className="text-[20px]" />
                   </button>
                 </ul>
               )}
@@ -245,9 +262,7 @@ const Navbar = () => {
       </div>
       {(active || location.pathname !== "/") && <hr />}
 
-      {(active2 || location.pathname !== "/") && (
-        <NavbarSlick/>
-      )}
+      {(active2 || location.pathname !== "/") && <NavbarSlick />}
       {/* {(active2 || location.pathname !== "/") && <hr className="" />} */}
     </div>
   );

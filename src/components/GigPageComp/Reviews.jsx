@@ -1,4 +1,3 @@
-import {React,useState} from 'react';
 import moment from "moment";
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
@@ -9,7 +8,7 @@ import Loading from "../Loading";
 function Reviews(){
   const {
     isLoading: isLoadingReviews,
-    errorReviews,
+    error:errorReviews,
     data: reviews,
   } = useQuery({
     queryKey: "reviews",
@@ -28,6 +27,7 @@ function Reviews(){
       queryClient.invalidateQueries("reviews");
     },
     onError: (error) => {
+      // @ts-ignore
       setError(error.response.data);
     },
     

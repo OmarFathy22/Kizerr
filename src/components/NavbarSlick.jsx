@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 function CustomPrevArrow(props) {
   const { className, style, onClick } = props;
@@ -51,6 +51,8 @@ const SecondNavBar = [
   "AI Services",
 ];
 export default function NavbarSlick() {
+  const location = useLocation();
+  const {id} = useParams()
     const settings = {
       infinite: false,
       speed: 500,
@@ -102,14 +104,14 @@ export default function NavbarSlick() {
     };
     return (
       <div>
-        <Slider {...settings} className="pl-[12px] w-full  mx-auto active2">
+      <Slider {...settings} className={`pl-[12px] w-full  mx-auto active2   ${location.pathname === "/message/" + id && "hidden"}`}>
         {SecondNavBar.map((item, index) => {
             return (
               <li
                 key={index}
-                className="mr-[20px]  relative  pt-[14px]  !w-[150px] text-[15px] font-medium h-[50px]  hover:border-b-[3px] hover:border-b-[#1dbf73] "
+                className="mr-[20px]  relative  pt-[14px]  !w-[150px] text-[15px] font-medium h-[50px]  "
               >
-                <Link className="text-[#333] flex rounded-md truncate justify-center  border border-[--primaryColor] !text-[--primaryColor]">{item}</Link>
+                <Link to={""} className="hover:bg-[--primaryColor] !text-[--primaryColor]   hover:!text-white transition-all  flex rounded-md truncate justify-center  border border-[--primaryColor] " >{item}</Link>
               </li>
             );
           })}

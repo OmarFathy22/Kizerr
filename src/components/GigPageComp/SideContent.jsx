@@ -2,7 +2,9 @@ import React from 'react';
 import {PiArrowsCounterClockwiseFill} from 'react-icons/pi';
 import {AiOutlineClockCircle} from 'react-icons/ai';
 import {BsCheckLg} from 'react-icons/bs';
-const SideContent = ({gig , seller}) => {
+import { Link, useParams } from 'react-router-dom';
+const SideContent = ({gig}) => {
+  const {id} = useParams();
   return (
     <div className=" w-[400px] flex flex-col gap-[20px]   float-right sticky  mr-[10%]  !top-0 ">
       <div className=" w-full border-[1px] my-[50px] border-[#cccaca] rounded-md shadow-lg flex flex-col gap-[20px]  p-4">
@@ -21,7 +23,7 @@ const SideContent = ({gig , seller}) => {
               ))}
             </ul>
             
-            <button className='bg-[var(--primaryColor)] w-full mx-auto text-white py-2 rounded-md'>Continue</button>
+            <Link to={`/payment/${id}`} className='bg-[var(--primaryColor)] text-center w-full mx-auto text-white py-2 rounded-md'>Continue</Link>
       </div>
     </div>
   );

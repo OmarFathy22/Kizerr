@@ -1,26 +1,24 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Gigs from './pages/Gigs'
-import Gig from './pages/Gig';
-import Orders from './pages/Orders';
-import MyGigs from './pages/MyGigs';
-import Add from './pages/Add';
-import Messages from './pages/Messages';
-import Message from './pages/Message';
-import Home from './pages/Home';
-import Signin from './pages/Signin';
-import Register from './pages/Register';
-import { Outlet } from 'react-router-dom';
+import React from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Gigs from "./pages/Gigs";
+import Gig from "./pages/Gig";
+import Orders from "./pages/Orders";
+import MyGigs from "./pages/MyGigs";
+import Add from "./pages/Add";
+import Messages from "./pages/Messages";
+import Message from "./pages/Message";
+import Home from "./pages/Home";
+import Signin from "./pages/Signin";
+import Register from "./pages/Register";
+import Success from "./pages/Success";
+import Payment from "./pages/Payment";
+import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { QueryClient, QueryClientProvider} from 'react-query'
-const queryClient = new QueryClient()
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
   // Extracts pathname property(key) from an object
@@ -30,19 +28,17 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  return (
-    <div></div>
-  )
-}
+  return <div></div>;
+};
 const Layout = () => {
   return (
-    <div className='app'>
-      <ScrollToTop/>
+    <div className="app">
+      <ScrollToTop />
       <Navbar />
-    <div className=''>
-        <Outlet/>
-    </div>
-      <Footer/>
+      <div className="">
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   );
 };
@@ -54,55 +50,62 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element:<Home/> ,
+        element: <Home />,
       },
       {
         path: "/gigs",
-        element: <Gigs/>,
+        element: <Gigs />,
       },
       {
         path: "/gig/:id",
-        element: <Gig/>,
+        element: <Gig />,
       },
       {
         path: "/orders",
-        element: <Orders/>,
+        element: <Orders />,
       },
       {
         path: "/mygigs",
-        element:<MyGigs/>,
+        element: <MyGigs />,
       },
       {
         path: "/add",
-        element:<Add/>,
+        element: <Add />,
       },
       {
         path: "/messages",
-        element: <Messages/>,
+        element: <Messages />,
       },
       {
         path: "/message/:id",
-        element: <Message/>,
+        element: <Message />,
       },
       {
         path: "/signin",
-        element:<Signin/>
+        element: <Signin />,
       },
       {
         path: "/register",
-        element:<Register/>
-      }
+        element: <Register />,
+      },
+      {
+        path: "/success",
+        element: <Success />,
+      },
+      {
+        path: "/payment/:id",
+        element: <Payment />,
+      },
     ],
-      
   },
 ]);
 
 const App = () => {
   return (
-  <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-  </QueryClientProvider>
+    </QueryClientProvider>
   );
-}
+};
 
 export default App;
