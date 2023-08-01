@@ -21,7 +21,7 @@ const Gigs = () => {
     "repoData",
     async () =>
       await NewRequest(
-        `/gigs?${search}&min=${min}&max=${max}&sort=${sortby}`
+        `/gigs${search}&min=${min}&max=${max}&sort=${sortby}`
       ).then((res) => res.data)
   );
   useEffect(() => {
@@ -115,7 +115,7 @@ const Gigs = () => {
     
       <ul className={`flex flex-wrap gap-10 justify-center items-center ${isLoading || isFetching  ? 'mt-10' : '' }`}>
         {data?.map((item, index) => {
-          if(isLoading || isFetching )return <SkeletonLoading/>
+          if(isLoading || isFetching )return <SkeletonLoading key={index}/>
           return <GigCard key={index} item={item}  />;
         })}
       </ul>

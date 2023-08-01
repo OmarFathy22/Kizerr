@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import {BsSearch} from "react-icons/bs";
 import {AiFillStar} from "react-icons/ai";
+import { useNavigate } from "react-router";
+import NewRequest from "../../utils/NewRequest";
 
 // make the above oject array of objects
 // then use the map function to iterate over the array
@@ -40,12 +42,17 @@ const HeroBg = [
 ];
 const Popular = ["Website Design", "Logo Design", "AI Services"];
 function Featured() {
+  const [search, setsearch] = useState("");
   const [index, setindex] = useState(0);
   useEffect(() => {
    setInterval(() => {
       setindex((prevCount) => (prevCount + 1) % HeroBg.length);
     }, 5000);
   }, []);
+  const navigate = useNavigate();
+  const handleSubmit = async() => {
+    navigate(`/gigs?search=${search}`);
+  }
   return (
     <div
       style={{ backgroundImage: `url(${HeroBg[index].url})` }}
@@ -55,15 +62,17 @@ function Featured() {
         <h1 className="text-white sm:text-[20px] sm-md:text-center  lg-xl:text-[35px] xl:text-[45px] text-[30px] font-bold ">
           Find the perfect freelance services for your business
         </h1>
-        <div className="flex sm-md:flex-col sm-md:gap-3 items-center w-full ">
+        <form onSubmit={handleSubmit} className="flex sm-md:flex-col sm-md:gap-3 items-center w-full ">
           <input
+            type="text"
+            onChange={(e) => setsearch(e.target.value)}
             className="p-[15px] sm-md:h-[45px] w-full rounded-md lg:rounded-none lg:rounded-l-md focus:outline-none"
             placeholder="Search for any service..."
           />
           <button className="px-[30px] sm-md:w-full flex rounded-md justify-center items-center h-full sm-md:h-[45px] text-white hover:bg-[#079e58] transition-all lg:rounded-none  lg:rounded-r-md bg-[#1dbf73]">
             <BsSearch />
           </button>
-        </div>
+        </form>
 
         <ul className="w-full">
           <h6 className="inline-block text-white text-[15px] font-semibold">

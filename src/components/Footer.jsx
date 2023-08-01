@@ -36,9 +36,9 @@ const About = [
 const Support = [
   "Help & Support",
   "Trust & Safety",
-  "Selling on Fiverr",
-  "Buying on Fiverr",
-  "Fiverr Guides",
+  "Selling on Kizerr",
+  "Buying on Kizerr",
+  "Kizerr Guides",
 ];
 const Community = [
   "Community",
@@ -55,16 +55,16 @@ const Community = [
   "Community Standards",
 ];
 
-const More_From_Fiverr = [
-  "Fiverr Enterprise",
-  "Fiverr Business",
-  "Fiverr Pro",
-  "Fiverr Logo Maker",
+const More_From_Kizerr = [
+  "Kizerr Enterprise",
+  "Kizerr Business",
+  "Kizerr Pro",
+  "Kizerr Logo Maker",
   "Get Inspired",
-  "Fiverr Select",
+  "Kizerr Select",
   "ClearVoice",
   "Content Marketing",
-  "Fiverr Workspace",
+  "Kizerr Workspace",
   "Invoice Software",
   "Learn",
   "Online Courses",
@@ -133,10 +133,10 @@ const Footer = () => {
 
           <div>
             <h1 className="text-[#514f4f] font-bold text-[20px]">
-              More From Fiverr
+              More From Kizerr
             </h1>
             <ul className="mt-[20px]">
-              {More_From_Fiverr.map((item, index) => (
+              {More_From_Kizerr.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px] hover:text-[#1dbf73] cursor-pointer"
@@ -153,12 +153,12 @@ const Footer = () => {
         <div className="py-[10px] flex justify-between   ">
           <div className="flex gap-10 items-center">
             <div className="flex items-end">
-              <h1 className="fiverr text-[#555] font-extrabold tracking-[-3px]	 text-[40px]">
+              <h1 className="Kizerr text-[#555] font-extrabold tracking-[-3px]	 text-[40px]">
                 kizerr
               </h1>
               <p className="text-[#555] pl-[10px] pb-[6px]">&reg;</p>
             </div>
-            <p className="text-[#939191]">© Fiverr International Ltd. 2023</p>
+            <p className="text-[#939191]">© Kizerr International Ltd. 2023</p>
           </div>
           <div className=" flex gap-[100px]">
             <div className="flex items-center   ">

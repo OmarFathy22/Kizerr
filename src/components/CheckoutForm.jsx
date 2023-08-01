@@ -83,7 +83,7 @@ const CheckoutForm = () => {const stripe = useStripe();
 
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} className="w-[70%]">
     <LinkAuthenticationElement
       id="link-authentication-element"
       onChange={(e) => {
@@ -95,13 +95,13 @@ const CheckoutForm = () => {const stripe = useStripe();
     <PaymentElement id="payment-element" 
 // @ts-ignore
     options={paymentElementOptions} />
-    <button disabled={isLoading || !stripe || !elements} id="submit">
+    <button disabled={isLoading || !stripe || !elements} id="submit" className="bg-[--primaryColor] p-3 w-full mt-10 mb-3 rounded-md text-white font-bold">
       <span id="button-text">
         {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
       </span>
     </button>
     {/* Show any error or success messages */}
-    {message && <div id="payment-message">{message}</div>}
+    {message && <div id="payment-message" className="text-red-600 text-center">{message}</div>}
   </form>
   );
 }

@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import NewRequest from "../../utils/NewRequest";
 import Loading from "../Loading";
 import Reviews from "./Reviews";
+import moment from "moment";
 
 // Parse the date string
 
@@ -34,7 +35,19 @@ const GigMedia = ({ gig }) => {
   );
 };
 
-const WhatPeopleSay = ({ gig }) => {
+const WhatPeopleSay = () => {
+  const { id } = useParams();
+  const {
+    isLoading: isLoadingReviews,
+    error: errorReviews,
+    data: reviews,
+  } = useQuery({
+    queryKey: "reviews",
+    queryFn: () => NewRequest(`reviews/${id}`).then((res) => res.data),
+  });
+
+  if (isLoadingReviews) return <Loading />;
+  if (errorReviews) return <h1>error</h1>;
   return (
     <div className="my-[100px]">
       <div className="flex justify-between w-[48%]">
@@ -49,37 +62,48 @@ const WhatPeopleSay = ({ gig }) => {
         </a>
       </div>
       <GigSlider>
-        {PeopleSay.map((item, index) => (
-          <div
+        {reviews.map((item, index) => {
+            if(index>4)return;
+          return(
+            <div
             key={index}
             className="flex justify-center flex-col gap-[10px]  border rounded-md  mx-auto  py-[20px] px-10 "
           >
             <div className="flex gap-[10px] ">
               <img
                 className=" rounded-full !object-cover h-[30px] w-[30px]"
-                src={item.subImg}
+                src={item?.img || "/no_avatar.png"}
                 alt="img"
               />
-              <h1 className="font-semibold text-[#555]">{item.name}</h1>
+              <h1 className="font-semibold text-[#555]">{item?.username}</h1>
               <div />
               <div className="h-[20px] bg-gray-200 w-[1px]" />
               <h1 className="flex gap-1 text-[var(--starColor)] items-start text-[20px] relative ">
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <p className="text-[15px] font-bold absolute top-[-1px] right-[-15px]">
-                  5
-                </p>
+                {Array(item?.star)
+                  .fill()
+                  .map((item, index) => (
+                    <AiFillStar
+                      key={index}
+                      className="text-[var(--starColor)]"
+                    />
+                  ))}
+                {Array(5 - item?.star)
+                  .fill()
+                  .map((item, index) => (
+                    <AiFillStar key={index} className="text-gray-300" />
+                  ))}
               </h1>
             </div>
             <div className="">
-              <p className=" line-clamp-2">{item.desc}</p>
-              <p className="text-gray-400">1 week ago</p>
+              <p className=" line-clamp-2">{item?.desc}</p>
+              <p className="text-gray-400">
+                {" "}
+                {moment(item?.createdAt).fromNow()}
+              </p>
             </div>
           </div>
-        ))}
+          )
+        })}
       </GigSlider>
     </div>
   );
@@ -290,7 +314,7 @@ const MainContent = () => {
     <div className="ml-[10%] !relative  my-[100px] ">
       {seller && (
         <div>
-          <SideContent gig={gig} seller={seller} />
+          <SideContent gig={gig} />
           <HeaderContent gig={gig} seller={seller} />
           <GigMedia gig={gig} />
           <WhatPeopleSay gig={gig} />

@@ -49,7 +49,7 @@ const Index = () => {
     <div className='my-[100px]'>
       <div className='flex justify-between w-[70%] mx-auto my-6'>
         <h1 className='font-bold text-[30px] text-[#444]'>Gigs</h1>
-c      </div>
+      </div>
       <table className='w-[70%] mx-auto '>
         <tr className=' text-left'>
           <th>Image</th>

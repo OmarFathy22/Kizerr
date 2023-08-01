@@ -36,8 +36,7 @@ const GigCard = ({ item }) => {
             </h1>
           </div>
           <p className=" line-clamp-2">
-            {item.desc &&
-              "I will recreate your dreams in high quality pictures"}
+            {item.title ||  "I will create a professional logo design for your brand"}
           </p>
           <div className="text-[#ffc108] flex items-center gap-1  ">
             <AiFillStar />
