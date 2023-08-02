@@ -21,9 +21,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
+  // clears sessionStorage after 5 minutes
+  useEffect(() => {
+    const clearSessionStorage = () => {
+      sessionStorage.clear();
+    };
+    const intervalId = setInterval(clearSessionStorage, 5 * 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, []);
   // Extracts pathname property(key) from an object
   const { pathname } = useLocation();
-
   // Automatically scrolls to top whenever pathname changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -89,7 +96,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/success",
+        path: "/success/:id",
         element: <Success />,
       },
       {

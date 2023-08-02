@@ -20,20 +20,17 @@ const Payment = () => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
     const RequstPayment = async () => {
       try {
-        const res = await NewRequest.post(`/create-payment-intent/${id}`, {
-          buyerUsername: User?.username,
-          buyerCountry: User?.country,
-        });
+        const res = await NewRequest.post(`/create-payment-intent/${id}`);
         setClientSecret(res.data.clientSecret);
       } catch (error) {
         setError(error.message);
       }
     };
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
     RequstPayment();
   }, []);
 

@@ -63,7 +63,14 @@ const SlickSlider = () => {
           slidesToShow: 2,
           slidesToScroll: 1
         }
-      }
+      },
+      {
+        breakpoint: 750,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      },
     ]
   };
     return (

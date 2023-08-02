@@ -3,13 +3,16 @@ import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
+import { useParams } from "react-router";
 
-const CheckoutForm = () => {const stripe = useStripe();
+const CheckoutForm = () => {
+  const {id} = useParams()
+  const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,7 +62,7 @@ const CheckoutForm = () => {const stripe = useStripe();
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/success",
+        return_url: `http://localhost:5173/success/${id}`,
       },
     });
 
@@ -78,32 +81,38 @@ const CheckoutForm = () => {const stripe = useStripe();
   };
 
   const paymentElementOptions = {
-    layout: "tabs"
-  }
-
+    layout: "tabs",
+  };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} className="w-[70%]">
-    <LinkAuthenticationElement
-      id="link-authentication-element"
-      onChange={(e) => {
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+        onChange={(e) => {
+          // @ts-ignore
+          setEmail(e.value);
+        }}
+      />
+      <PaymentElement
+        id="payment-element"
         // @ts-ignore
-        setEmail(e.value)
-      }}
-
-    />
-    <PaymentElement id="payment-element" 
-// @ts-ignore
-    options={paymentElementOptions} />
-    <button disabled={isLoading || !stripe || !elements} id="submit" className="bg-[--primaryColor] p-3 w-full mt-10 mb-3 rounded-md text-white font-bold">
-      <span id="button-text">
-        {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-      </span>
-    </button>
-    {/* Show any error or success messages */}
-    {message && <div id="payment-message" className="text-red-600 text-center">{message}</div>}
-  </form>
+        options={paymentElementOptions}
+      />
+      <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className="bg-[--primaryColor] p-3 w-full mt-10 mb-3 rounded-md text-white font-bold"
+      >
+        <span>{isLoading ? "  Processing..." : "Pay now"}</span>
+      </button>
+      {/* Show any error or success messages */}
+      {message && (
+        <div id="payment-message" className="text-red-600 text-center">
+          {message}
+        </div>
+      )}
+    </form>
   );
-}
+};
 
 export default CheckoutForm;

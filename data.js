@@ -7,13 +7,13 @@ export const cards = [
   },
   {
     id: 2,
-    title: "Logo Design",
+    title: "Programming",
     desc: "Build yor brand",
     img: "https://images.pexels.com/photos/11295165/pexels-photo-11295165.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   },
   {
     id: 3,
-    title: "WordPress",
+    title: "Logo Design",
     desc: "Customize your site",
     img: "https://images.pexels.com/photos/4371669/pexels-photo-4371669.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   },

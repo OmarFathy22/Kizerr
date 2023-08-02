@@ -11,6 +11,7 @@ import NewRequest from "../../utils/NewRequest";
 import Loading from "../Loading";
 import Reviews from "./Reviews";
 import moment from "moment";
+import handleImageError from "../../utils/HandleImgErr";
 
 // Parse the date string
 
@@ -71,8 +72,9 @@ const WhatPeopleSay = () => {
           >
             <div className="flex gap-[10px] ">
               <img
+                onError={handleImageError}
                 className=" rounded-full !object-cover h-[30px] w-[30px]"
-                src={item?.img || "/no_avatar.png"}
+                src={item?.img}
                 alt="img"
               />
               <h1 className="font-semibold text-[#555]">{item?.username}</h1>
@@ -317,7 +319,7 @@ const MainContent = () => {
           <SideContent gig={gig} />
           <HeaderContent gig={gig} seller={seller} />
           <GigMedia gig={gig} />
-          <WhatPeopleSay gig={gig} />
+          <WhatPeopleSay  />
           <AboutGig gig={gig} />
           <AboutSellerHeader seller={seller} />
           <AboutSellerBody seller={seller} />
