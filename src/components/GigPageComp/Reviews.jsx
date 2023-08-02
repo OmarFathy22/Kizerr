@@ -98,7 +98,7 @@ function Reviews(){
         }
         </div>
       ))}
-      <button className="text-[var(--primaryColor)] mt-5">+ See More</button>
+      
       {errorReviews && <h1>error</h1>}
     </div>
   );

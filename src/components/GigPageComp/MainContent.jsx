@@ -51,62 +51,69 @@ const WhatPeopleSay = () => {
   if (errorReviews) return <h1>error</h1>;
   return (
     <div className="my-[100px]">
-      <div className="flex justify-between w-[48%]">
-        <h1 className="text-[20px] font-bold">
-          What people loved about this seller
-        </h1>
-        <a
-          href={"#all_reviews"}
-          className="text-[var(--primaryColor)] font-medium"
-        >
-          see all reviews
-        </a>
-      </div>
-      <GigSlider>
-        {reviews.map((item, index) => {
-            if(index>4)return;
-          return(
-            <div
-            key={index}
-            className="flex justify-center flex-col gap-[10px]  border rounded-md  mx-auto  py-[20px] px-10 "
-          >
-            <div className="flex gap-[10px] ">
-              <img
-                onError={handleImageError}
-                className=" rounded-full !object-cover h-[30px] w-[30px]"
-                src={item?.img}
-                alt="img"
-              />
-              <h1 className="font-semibold text-[#555]">{item?.username}</h1>
-              <div />
-              <div className="h-[20px] bg-gray-200 w-[1px]" />
-              <h1 className="flex gap-1 text-[var(--starColor)] items-start text-[20px] relative ">
-                {Array(item?.star)
-                  .fill()
-                  .map((item, index) => (
-                    <AiFillStar
-                      key={index}
-                      className="text-[var(--starColor)]"
-                    />
-                  ))}
-                {Array(5 - item?.star)
-                  .fill()
-                  .map((item, index) => (
-                    <AiFillStar key={index} className="text-gray-300" />
-                  ))}
-              </h1>
-            </div>
-            <div className="">
-              <p className=" line-clamp-2">{item?.desc}</p>
-              <p className="text-gray-400">
-                {" "}
-                {moment(item?.createdAt).fromNow()}
-              </p>
-            </div>
+      {reviews?.length > 0 && (
+        <div>
+          {" "}
+          <div className="flex justify-between w-[48%]">
+            <h1 className="text-[20px] font-bold">
+              What people loved about this seller
+            </h1>
+            <a
+              href={"#all_reviews"}
+              className="text-[var(--primaryColor)] font-medium"
+            >
+              see all reviews
+            </a>
           </div>
-          )
-        })}
-      </GigSlider>
+          <GigSlider>
+            {reviews.map((item, index) => {
+              if (index > 4) return;
+              return (
+                <div
+                  key={index}
+                  className="flex justify-center flex-col gap-[10px]  border rounded-md  mx-auto  py-[20px] px-10 "
+                >
+                  <div className="flex gap-[10px] ">
+                    <img
+                      onError={handleImageError}
+                      className=" rounded-full !object-cover h-[30px] w-[30px]"
+                      src={item?.img}
+                      alt="img"
+                    />
+                    <h1 className="font-semibold text-[#555]">
+                      {item?.username}
+                    </h1>
+                    <div />
+                    <div className="h-[20px] bg-gray-200 w-[1px]" />
+                    <h1 className="flex gap-1 text-[var(--starColor)] items-start text-[20px] relative ">
+                      {Array(item?.star)
+                        .fill()
+                        .map((item, index) => (
+                          <AiFillStar
+                            key={index}
+                            className="text-[var(--starColor)]"
+                          />
+                        ))}
+                      {Array(5 - item?.star)
+                        .fill()
+                        .map((item, index) => (
+                          <AiFillStar key={index} className="text-gray-300" />
+                        ))}
+                    </h1>
+                  </div>
+                  <div className="">
+                    <p className=" line-clamp-2">{item?.desc}</p>
+                    <p className="text-gray-400">
+                      {" "}
+                      {moment(item?.createdAt).fromNow()}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </GigSlider>
+        </div>
+      )}
     </div>
   );
 };
@@ -319,7 +326,7 @@ const MainContent = () => {
           <SideContent gig={gig} />
           <HeaderContent gig={gig} seller={seller} />
           <GigMedia gig={gig} />
-          <WhatPeopleSay  />
+          <WhatPeopleSay />
           <AboutGig gig={gig} />
           <AboutSellerHeader seller={seller} />
           <AboutSellerBody seller={seller} />
