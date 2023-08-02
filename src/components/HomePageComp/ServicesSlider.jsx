@@ -1,13 +1,15 @@
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { cards } from "../../../data"
+import ProjectCard from "./ProjectCard";
+import { cards, projects } from "../../../data"
 import ServiceCard from "./ServiceCard";
 function CustomPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={className + " z-10 left-[40px] "}
+      className={className + " z-10 left-[1px] "}
       style={{ ...style,backgroundColor: "white", borderRadius: "50%", padding: "25px", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
       onClick={onClick}
     >
@@ -23,7 +25,7 @@ function CustomNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={className + " z-10 right-[30px]"}
+      className={className + " z-10 right-[1px]"}
       style={{ ...style, backgroundColor: "white", borderRadius: "50%", padding: "25px", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
       onClick={onClick}
     >
@@ -53,16 +55,23 @@ const SlickSlider = () => {
           slidesToShow: 3,
           slidesToScroll: 2,
           infinite: true,
-          dots: true
+          
         }
       },
       {
         breakpoint: 1000,
         settings: {
           slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 1,
           slidesToScroll: 1
         }
-      }
+      },
     ]
   };
     return (
@@ -70,7 +79,7 @@ const SlickSlider = () => {
       <h1 className="text-[30px] text-[#434343] font-extrabold ml-[12%] mt-[100px] mb-[20px]">
         Popular Services
       </h1>
-        <Slider {...settings} className="pl-[60px]  w-[85%] mx-auto ">
+        <Slider {...settings} className=" w-[80%]   mx-auto ">
         {cards.map((card) => (
             <ServiceCard key={card.id} card={card} />
           ))}

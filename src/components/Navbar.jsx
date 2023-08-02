@@ -147,7 +147,7 @@ const Navbar = () => {
         </Link>
 
         {active2 && (
-          <div className="flex items-center max-w-[700px]   flex-1  h-[45px] ">
+          <div className="flex items-center max-w-[700px] sm:hidden  flex-1  h-[45px] ">
             <input
               className="px-[15px] h-full border-[1px]  w-full sm-md:rounded-md lg:rounded-none  lg:rounded-l-md focus:outline-none sm-md:}"
               placeholder={

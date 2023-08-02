@@ -42,15 +42,15 @@ const Gigs = () => {
             artists
           </p>
         </div>
-        <div className="flex justify-between items-start mt-10">
+        <div className="flex justify-between sm-md:flex-col sm-md:items-center sm-md:gap-7 items-start mt-10">
           <div className="flex items-center gap-5">
-            <p className="text-[#444]">Budget</p>
-            <div>
+            <p className="text-[#444] font-bold">Budget</p>
+            <div className="sm:flex sm:flex-col mx-auto ">
               <input
                 onChange={(e) => {
                   setMin(e.target.value);
                 }}
-                className="p-1 mr-2 border-[2px] rounded-md outline-[--primaryColor] min-w-[200px]"
+                className="p-1 mr-2 sm:mb-2 sm:mr-0  border-[2px] rounded-md outline-[--primaryColor] min-w-[200px]"
                 type="number"
                 max={max}
                 min={0}

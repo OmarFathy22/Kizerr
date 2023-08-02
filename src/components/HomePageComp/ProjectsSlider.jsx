@@ -60,12 +60,19 @@ const SlickSlider = () => {
       {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1
         }
       },
       {
-        breakpoint: 750,
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 620,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -74,11 +81,11 @@ const SlickSlider = () => {
     ]
   };
     return (
-      <div className="bg-[#eae9e9] py-[50px] my-[100px]">
-      <h1 className="text-[30px] ml-[9%] text-[#434343] font-extrabold mt-[100px] mb-[20px]">
+      <div className="bg-[#eae9e9] py-[50px] mt-[100px]">
+      <h1 className="sm:text-[20px]  text-[30px] ml-[10%]  text-[#434343] font-extrabold  mb-[20px]">
       Inspiring work made on Fiverr
       </h1>
-        <Slider {...settings} className="pl-[20px] w-[85%]   mx-auto ">
+        <Slider {...settings} className="pl-[20px]   w-[80%] sm:w-[400px]  mx-auto ">
         {projects.map((card) => (
             <ProjectCard key={card.id} card={card} />
           ))}

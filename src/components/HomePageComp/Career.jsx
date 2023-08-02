@@ -47,8 +47,8 @@ const Career = () => {
   const [currItem, setCurrItem] = useState("");
   return (
     <div className='my-[100px]'>
-      <h1 className='w-[90%] mx-auto text-[35px] font-bold text-[#292929]'>You need it, we&apos;ve got it</h1>
-      <ul className='grid grid-cols-5 gap-8 w-[80%] mx-auto mt-[50px] '>
+      <h1 className='w-[90%] mx-auto sm:text-[30px] text-[35px] font-bold text-[#292929]'>You need it, we&apos;ve got it</h1>
+      <ul className='grid grid-cols-5 md-lg:grid-cols-4 md:!grid-cols-3 sm:!grid-cols-2  gap-8 w-[80%] mx-auto mt-[50px] '>
         {Careers.map((item , index) => (
           <Link
            onMouseOver={() => {

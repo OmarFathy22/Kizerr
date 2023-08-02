@@ -8,11 +8,11 @@ const Trusted_by = [
 ]
 const TrustedBy = () => {
   return (
-  <ul className='mt-[10px] flex gap-[50px] justify-center items-center'>
-    <h3 className='font-semibold text-[17px] text-gray-400'>Trusted By:&nbsp;&nbsp;</h3> 
+  <ul className='mt-[10px] mx-10 flex sm:gap-6 gap-[50px] justify-center items-center'>
+    <h3 className='font-semibold text-[17px] sm:text-[12px] text-gray-400 min-w-fit'>Trusted By:&nbsp;&nbsp;</h3> 
     {Trusted_by.map((item , index) => (
       <li key={index}>
-        <img className='w-[85px] h-[70px]' src={item} alt="" />
+        <img className='w-[85px] min-w-[30px] min-h-[30px] h-[70px] object-contain' src={item} alt="" />
       </li>
     ))}
   </ul>

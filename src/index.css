@@ -28,11 +28,13 @@
   box-sizing: border-box;
   /* scroll-behavior: smooth; */
 }
-.app{
-  max-width: 3000px;
-  margin: 0 auto;
-}
+
+
+  
+
+
 :root {
+  
   --primaryColor: #1dbf73;
   --starColor : #ffb33e;
   --primaryBG:#f5f5f5;
@@ -48,6 +50,11 @@ li :not(.me){
 }
 .borderr{
   border: 1px solid red;
+}
+.Center{
+  left:50% !important ;
+  top: 50% !important;
+  transform:translate(-50%,-50%) !important;
 }
 /* header styles */
 
@@ -119,10 +126,5 @@ border:  1px solid rgb(187, 185, 185);
     background-color: white;
   }
 }
-.itemClass{
-  width: 320px !important;
-}
-.itemWrapperClass {
-  width: 1300px !important;
-} 
+
 

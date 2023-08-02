@@ -36,7 +36,7 @@ function Reviews(){
       mutation.mutate(item?._id);
   };
   return (
-    <div className="w-[48%] my-[100px]" id={"all_reviews"}>
+    <div className="xl:w-[60%] w-full my-[100px]" id={"all_reviews"}>
     {isLoadingReviews ?<Loading />: errorReviews ? <h1>error</h1> : reviews.map((item, index) => (
         <div
           key={index}
@@ -53,7 +53,7 @@ function Reviews(){
               />
               <div>
                 <h1 className="font-semibold text-[#555]">{item?.username}</h1>
-                <h1 className="font-[500] text-[#555] ">{item?.country}</h1>
+                <h1 className="font-[500] text-[#555] sm:text-[12px] ">{item?.country}</h1>
               </div>
             </div>
             <div className="flex gap-3 mt-1    flex-1  justify-end">
@@ -75,9 +75,9 @@ function Reviews(){
                     />
                   ))}
               </h1>
-              <div className="h-[20px] bg-gray-200 w-[1px] ml-3" />
-              <p className="text-gray-400 ">
-                {moment(item?.createdAt).fromNow()}
+              <div className=" hidden xl:block h-[20px] bg-gray-200 w-[1px] ml-3" />
+              <p className="hidden xl:block text-gray-400 sm:text-[10px] ">
+                {moment(item?.createdAt).fromNow()} 
               </p>
               
             </div>
@@ -86,6 +86,9 @@ function Reviews(){
           <div className="ml-[40px]">
             
             <p className='text-[#666]'>{item?.desc}</p>
+              <p className=" xl:hidden text-gray-400 sm:text-[10px] mt-2 ">
+                {moment(item?.createdAt).fromNow()} 
+              </p>
           </div>
         {
           (item?.userId == JSON.parse(localStorage.getItem("currentUser"))?._id) && (

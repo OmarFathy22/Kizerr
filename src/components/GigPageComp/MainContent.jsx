@@ -22,7 +22,7 @@ const GigMedia = ({ gig }) => {
         {gig?.images?.map((item, index) => (
           <div key={index} className="flex justify-center items-center ">
             <img
-              className="!object-cover h-[400px] w-[1000px]"
+              className="object-cover min-h-[300px] sm:max-h-[300px] max-h-[500px] w-full"
               src={
                 item ||
                 "https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
@@ -50,17 +50,17 @@ const WhatPeopleSay = () => {
   if (isLoadingReviews) return <Loading />;
   if (errorReviews) return <h1>error</h1>;
   return (
-    <div className="my-[100px]">
+    <div className="my-[100px] ">
       {reviews?.length > 0 && (
         <div>
           {" "}
-          <div className="flex justify-between w-[48%]">
-            <h1 className="text-[20px] font-bold">
+          <div className="flex justify-between xl:w-[60%] ">
+            <h1 className="text-[20px] font-bold max-w-[60%]">
               What people loved about this seller
             </h1>
             <a
               href={"#all_reviews"}
-              className="text-[var(--primaryColor)] font-medium"
+              className="text-[var(--primaryColor)] font-medium text-right"
             >
               see all reviews
             </a>
@@ -119,11 +119,11 @@ const WhatPeopleSay = () => {
 };
 const AboutGig = ({ gig }) => {
   return (
-    <div className="w-[48%]">
+    <div className="xl:w-[60%] w-full">
       <h1 className="text-[20px] font-bold my-[20px]">About this gig</h1>
       <div className="text-[#555]">{gig?.desc}</div>
       <hr className="my-[30px]" />
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap gap-5">
         <div className="">
           <p className="text-[#888]">Design style</p>
           <p className="text-[#666]">Illustrative</p>
@@ -145,7 +145,7 @@ const AboutGig = ({ gig }) => {
 
 const AboutSellerHeader = ({ seller }) => {
   return (
-    <div className="w-[48%] mt-[100px]">
+    <div className="xl:w-[60%]  w-fit  sm-md:mx-auto mt-[100px]">
       <h1 className="text-[20px] font-bold my-[20px]">About the Seller</h1>
       <div className="flex gap-[30px]">
         <div>
@@ -166,7 +166,7 @@ const AboutSellerHeader = ({ seller }) => {
             <AiFillStar />
             <AiFillStar />
           </h1>
-          <button className="p-[10px] px-[30px] mt-[20px] border border-gray-500  rounded-md hover:text-white hover:bg-[#888] transition-all ">
+          <button className="p-[10px] px-[30px] sm:px-2 mt-[20px] border border-gray-500  rounded-md hover:text-white hover:bg-[#888] transition-all ">
             Contact me
           </button>
         </div>
@@ -199,8 +199,8 @@ const AboutSellerBody = ({ seller }) => {
     },
   ];
   return (
-    <div className="w-[48%] mt-[50px] border p-[20px] rounded-md">
-      <ul className="grid grid-cols-3 gap-[30px]">
+    <div className="xl:w-[60%] w-full  sm-md:mx-auto mt-[50px] border p-[20px] rounded-md">
+      <ul className="grid grid-cols-3 gap-[30px] sm:!grid-cols-2">
         {data.map((item, index) => (
           <li key={index} className="flex flex-col gap-1">
             <h1 className="text-[#666]">{item.title}</h1>
@@ -266,7 +266,7 @@ const CreateReview = ({ gig }) => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-5 mt-[40px] w-[48%]"
+        className="flex flex-col items-center gap-5 mt-[40px] xl:w-[60%] w-full"
       >
         <textarea
           value={desc}
@@ -320,12 +320,17 @@ const MainContent = () => {
   if (isLoadingUsers || isLoadingGigs) return <Loading />;
   if (errorUsers || errorGigs) return <h1>error</h1>;
   return (
-    <div className="ml-[10%] !relative  my-[100px] ">
+    <div className="mx-[50px] sm:mx-[30px]  !relative  my-[100px] ">
       {seller && (
         <div>
-          <SideContent gig={gig} />
+          <div className="hidden xl:flex  w-[400px]  flex-col gap-[20px]   xl:float-right sticky    !top-0 ">
+            <SideContent  gig={gig} />
+          </div>
           <HeaderContent gig={gig} seller={seller} />
           <GigMedia gig={gig} />
+          <div className="hidden sm-xl:flex w-full  flex-col gap-[20px]      !top-0">
+            <SideContent gig={gig} />
+          </div>
           <WhatPeopleSay />
           <AboutGig gig={gig} />
           <AboutSellerHeader seller={seller} />
