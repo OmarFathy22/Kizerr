@@ -12,6 +12,7 @@ import moment from "moment";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { HiMenu } from "react-icons/hi";
+import upload from "../utils/Upload.js";
 
 const Index = () => {
   const User = JSON.parse(localStorage.getItem("currentUser"));
@@ -20,10 +21,17 @@ const Index = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [MESSAGE, setMESSAGE] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
+  const [clickImage, setClickImage] = useState(false);
+  const [chosenImage, setChosenImage] = useState(undefined);
+  const [isUploading, setisUploading] = useState(false);
+  const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) 
+      ) {
         setOpenMenu(false);
       }
     }
@@ -85,15 +93,24 @@ const Index = () => {
   const handleEmojie = (e) => {
     setMESSAGE(MESSAGE + e.native);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let media = undefined;
+    if (chosenImage) {
+      setisUploading(true);
+      media = await upload(chosenImage);
+      setisUploading(false);
+    }
     const newMessage = {
       desc: MESSAGE,
       conversationId: id,
+      img: media,
     };
     // @ts-ignore
     mutation.mutate(newMessage);
     setMESSAGE("");
+    setChosenImage(undefined);
+    setFileName("");
   };
 
   if (isLoading || isLoadingAllConvs || isLoadingConv) return <Loading />;
@@ -101,6 +118,7 @@ const Index = () => {
   return (
     <div className="flex w-full  h-[100vh] fixed top-0 bottom-0 left-0 right-0 ">
       <div
+      ref={menuRef}
         className={`w-[25%] max-1200:hidden ${
           openMenu &&
           "max-1200:!block max-1200:fixed max-1200:!top-0 max-1200:!bottom-0 max-1200:!left-0 max-1200:!w-[70%] max-1200:max-w-[400px] max-1200:!z-[2000]"
@@ -110,11 +128,8 @@ const Index = () => {
           <Link to={"/messages"} className="font-bold text-[35px]">
             Chats
           </Link>
-          <div className="flex gap-3">
+          {/* <div className="flex gap-3">
             <button
-              onClick={() => {
-                setOpenMenu(!openMenu);
-              }}
               className="text-[25px] bg-gray-300 rounded-full p-2"
             >
               <AiOutlineSearch />
@@ -122,7 +137,7 @@ const Index = () => {
             <button className="text-[25px] bg-gray-300 rounded-full p-2">
               <GiSettingsKnobs />
             </button>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-[100px] ">
@@ -146,9 +161,14 @@ const Index = () => {
                   className="h-[40px] w-[40px] rounded-full object-cover"
                 />
                 <div className="">
-                  <h1 className="font-bold text-[20px]">
-                    {User.isSeller ? item?.buyerUsername : item?.sellerUsername}
-                  </h1>
+                  <div className="flex gap-1 items-center relative">
+                    <h1 className="font-bold text-[20px]">
+                      {User.isSeller
+                        ? item?.buyerUsername
+                        : item?.sellerUsername}
+                    </h1>
+                    <div className=" bg-[--primaryColor]  translate-y-1 h-2 w-2 rounded-full" />
+                  </div>
                   <h1 className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
                     {item?.lastMessage || "..."}
                   </h1>
@@ -165,10 +185,10 @@ const Index = () => {
       <div className="w-[75%] max-1200:w-full overflow-auto mb-[100px]">
         <div className="">
           <div
-            className={`border-b border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
+            className={`border-b justify-between border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
           >
             <div
-              ref={menuRef}
+              
               onClick={() => {
                 setOpenMenu(!openMenu);
               }}
@@ -176,20 +196,25 @@ const Index = () => {
             >
               <HiMenu />
             </div>
-            <div className="">
-              <img
-                src={
-                  (User.isSeller ? Conv.buyerImg : Conv.sellerUserImg) ||
-                  "/no_avatar.png"
-                }
-                alt=""
-                className="h-[40px] w-[40px] rounded-full object-cover"
-              />
-            </div>
-            <Link className="font-bold text-[25px]" to={""}>
-              {(User.isSeller ? Conv.buyerUsername : Conv.sellerUsername) ||
-                "user"}
-            </Link>
+          <div className="flex gap-2">
+              <div className="">
+                <img
+                  src={
+                    (User.isSeller ? Conv.buyerImg : Conv.sellerUserImg) ||
+                    "/no_avatar.png"
+                  }
+                  alt=""
+                  className="h-[40px] w-[40px] rounded-full object-cover"
+                />
+              </div>
+              <div className="flex gap-1 items-center ">
+                <h1 className="font-bold text-[20px]">
+                  {(User.isSeller ? Conv.buyerUsername : Conv.sellerUsername) ||
+                    "user"}
+                </h1>
+                <div className=" bg-[--primaryColor]  translate-y-1 h-2 w-2 rounded-full" />
+              </div>
+          </div>
           </div>
           <div className={`mb-[50px] mt-[150px] px-[15px] `}>
             {messages?.map((message, index) => (
@@ -216,30 +241,67 @@ const Index = () => {
                         : "bg-[#e4e3e3]"
                     } `}
                   >
-                  <div className="flex flex-col items-start  justify-start ">
-                      <p dir="ltr" className={`w-full ${message?.desc.length < 10 && "text-center"}`}>
+                    <div className="flex flex-col items-start  justify-start ">
+                      <div
+                        onClick={() => {
+                          setClickImage(!clickImage);
+                        }}
+                      >
+                        {message?.img && (
+                          <img
+                            src={message?.img}
+                            alt="gig_cover"
+                            className="object-fill max-h-[100%] max-w-[100%] cursor-pointer rounded-xl"
+                          />
+                        )}
+                        {clickImage && (
+                          <div className="fixed backdrop-blur-sm top-0 left-0 opacity-[0.5] right-0 bottom-0 h-[100vh] w-[100vw] bg-[#00000080] z-[1002] flex justify-center items-center ">
+                            <div className="opacity-90 h-full max-w-[95%] cursor-pointer ">
+                              <img
+                                src={message?.img}
+                                alt="gig_cover"
+                                className="object-contain w-full h-full z-[1000] opacity-90"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <p
+                        dir="ltr"
+                        className={`w-full ${message?.img && "mt-2"} ${
+                          message?.desc.length < 10 &&
+                          !message?.img &&
+                          "text-center"
+                        }`}
+                      >
                         {message?.desc}
                       </p>
                       <p
-                      dir="ltr"
-                      className={`font-normal text-[10px]   py-1 ${
-                        message?.userId === User?._id ? "text-end" : "text-start"
-                      } ${
-                        message?.userId === User?._id
-                          ? " text-[#e8e6e6]"
-                          : "text-gray-500"
-                      }`}
-                    >
-                      {moment(message.createdAt).format("LT")}
-                    </p>
+                        dir="ltr"
+                        className={`font-normal text-[10px]   py-1 ${
+                          message?.userId === User?._id
+                            ? "text-end"
+                            : "text-start"
+                        } ${
+                          message?.userId === User?._id
+                            ? " text-[#e8e6e6]"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        {moment(message.createdAt).format("LT")}
+                      </p>
+                    </div>
                   </div>
-                  </div>
-                
                 </div>
               </div>
             ))}
           </div>
         </div>
+        {fileName && (
+          <h1 className=" truncate flex items-center justify-between fixed bottom-[100px] border-t border-gray-300 px-10 sm:px-2 bg-gray-50 right-0 left-[25%] max-1200:left-0 gap-5 ">
+            {fileName}
+          </h1>
+        )}
         <form
           onSubmit={handleSubmit}
           className=" flex items-center justify-between fixed bottom-0 h-[100px] border-t border-gray-300 px-10 sm:px-2 bg-gray-50 right-0 left-[25%] max-1200:left-0 gap-5 "
@@ -254,7 +316,19 @@ const Index = () => {
               <BsMic />
             </span> */}
             <span className=" transition-all cursor-pointer hover:opacity-[0.90]">
-              <MdOutlineAttachFile className="hover:text-[--primaryColor] rounded-full" />
+              <label htmlFor="Attach">
+                <MdOutlineAttachFile className="hover:text-[--primaryColor] rounded-full  cursor-pointer " />
+              </label>
+              <input
+                onChange={(e) => {
+                  setChosenImage(e.target.files[0]);
+                  setFileName(e.target.files[0]?.name);
+                }}
+                className="hidden"
+                id="Attach"
+                type="file"
+                accept="image/*"
+              />
             </span>
             <span
               onClick={() => setShowEmoji(!showEmoji)}
@@ -271,11 +345,33 @@ const Index = () => {
             onChange={(e) => setMESSAGE(e.target.value)}
           />
           <button
-            className={`text-[25px]  text-white text-bold p-2  rounded-full outline-none ${
-              MESSAGE ? "bg-[--primaryColor]" : "bg-gray-500"
-            }`}
+            disabled={!MESSAGE && !chosenImage}
+            type="submit"
+            className={`text-[25px]  text-white text-bold p-2  rounded-full outline-none bg-[--primaryColor] disabled:cursor-not-allowed  disabled:bg-gray-500`}
           >
-            <IoMdSend />
+            {isUploading ? (
+              <div role="status">
+                <svg
+                  aria-hidden="true"
+                  className="w-8 h-8 mx-auto text-gray-200 animate-spin dark:text-gray-300 fill-white"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              <IoMdSend />
+            )}
           </button>
         </form>
       </div>
