@@ -50,7 +50,8 @@ function Featured() {
     }, 5000);
   }, []);
   const navigate = useNavigate();
-  const handleSubmit = async() => {
+  const handleSubmit = async(e) => {
+    e.preventDefault();
     navigate(`/gigs?search=${search}`);
   }
   return (

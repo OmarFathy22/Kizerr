@@ -152,7 +152,7 @@ const Footer = () => {
         <hr className=" border-gray-300 mt-[10px]" />
 
         
-        <div className="py-[10px] flex justify-between   ">
+        <div className="py-[10px] flex justify-between sm-md:flex-col  ">
           <div className="flex gap-10 items-center">
             <div className="flex items-end">
               <h1 className="Kizerr text-[#555] font-extrabold tracking-[-3px]	 text-[40px]">
@@ -160,10 +160,10 @@ const Footer = () => {
               </h1>
               <p className="text-[#555] pl-[10px] pb-[6px]">&reg;</p>
             </div>
-            <p className="sm-md:hidden text-[#939191]">© Kizerr International Ltd. 2023</p>
+            <p className=" text-[#939191] sm-md:text-[13px]">© Kizerr International Ltd. 2023</p>
           </div>
-          <div className=" flex gap-[100px]">
-            <div className="flex items-center sm-md:mt-[10px]   ">
+          <div className=" flex gap-[100px] ">
+            <div className="flex items-center sm-md:mt-[10px] sm-md:mx-auto   ">
               <div className="flex gap-[20px]">
                 <ImPinterest2 className=" cursor-pointer text-[20px] text-gray-600" />
                 <AiOutlineTwitter className=" cursor-pointer text-[20px] text-gray-600" />
@@ -172,7 +172,7 @@ const Footer = () => {
                 <BsFacebook className=" cursor-pointer text-[20px] text-gray-600" />
               </div>
             </div>
-            <div className="flex items-center gap-[20px] sm-md:hidden">
+            <div className="flex items-center gap-[20px] sm-md:hidden ">
               <p className="flex items-center gap-1 cursor-pointer text-[13px] text-gray-600"><TfiWorld/>English</p>
               <p className="cursor-pointer text-[13px] text-gray-600 flex items-center gap-1"><BiDollar/>USD</p>
               <p className="cursor-pointer text-[30px] text-gray-600 hover:text-gray-900">

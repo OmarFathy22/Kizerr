@@ -1,6 +1,6 @@
 
 export const  INITIAL_STATE = {
-  username: JSON.parse(localStorage.getItem('currentUser')).username,
+  username: JSON.parse(localStorage.getItem('currentUser'))?.username,
   cat: 'Graphics & Design',
   title: '',
   desc: '',

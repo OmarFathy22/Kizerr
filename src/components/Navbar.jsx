@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router";
-import { HiMenu } from "react-icons/hi";
+// import { HiMenu } from "react-icons/hi";
 import {TfiWorld} from "react-icons/tfi";
 import { useMediaQuery } from "react-responsive";
 import NavbarSlick from "./NavbarSlick";
@@ -15,6 +15,7 @@ const Navbar = () => {
   const sm_md = useMediaQuery({ query: "(max-width: 1024px)" });
   const [active, setactive] = useState("");
   const [active2, setactive2] = useState("");
+  const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const isActive = () => {
     window.scrollY > 0 ? setactive("active") : setactive("");
@@ -49,8 +50,12 @@ const Navbar = () => {
       window.removeEventListener("scroll", isActive);
     };
   }, []);
+
   const User = JSON.parse(localStorage.getItem("currentUser")) || {};
-  
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    navigate(`/gigs?search=${search}`);
+  }
   const FirstNavBar = [
     {
       title: "Kizerr Business",
@@ -76,7 +81,7 @@ const Navbar = () => {
 
   const SellerMenu = [
     {
-      title: "Gigs",
+      title: "My Gigs",
       linkto: "/mygigs",
     },
     {
@@ -126,13 +131,13 @@ const Navbar = () => {
       >
         <Link to={"/"} className=" h-[60px] flex items-center ">
           {/* <img src={fiverr_logo} alt="logo" /> */}
-          <h1
+          {/* <h1
             className={`text-white font-[900] lg:hidden text-[35px] mr-2 pt-2 ${
               (active || location.pathname !== "/") && "!text-[#555]"
             }`}
           >
             <HiMenu />
-          </h1>
+          </h1> */}
           <h1
             className={`fiverr text-white font-extrabold tracking-[-3px] text-[40px]   ${
               location.pathname !== "/" && "!relative !bg-white !text-black"
@@ -147,8 +152,10 @@ const Navbar = () => {
         </Link>
 
         {active2 && (
-          <div className="flex items-center max-w-[700px] sm:hidden  flex-1  h-[45px] ">
+          <form onSubmit={handleSubmit} className="flex items-center max-w-[700px] sm:hidden  flex-1  h-[45px] ">
             <input
+                type="text"
+              onChange={(e) => setSearch(e.target.value)}
               className="px-[15px] h-full border-[1px]  w-full sm-md:rounded-md lg:rounded-none  lg:rounded-l-md focus:outline-none sm-md:}"
               placeholder={
                 sm_md
@@ -156,13 +163,13 @@ const Navbar = () => {
                   : "What Service are you looking for today?"
               }
             />
-            <button className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]">
+            <button type="submit" className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]">
               <BsSearch />
             </button>
-          </div>
+          </form>
         )}
 
-        <ul className="flex gap-[30px] items-center ">
+        <ul className="flex gap-[30px] items-center sm:translate-y-[7px]">
           {FirstNavBar.map((item, index) => {
             return (
               <li

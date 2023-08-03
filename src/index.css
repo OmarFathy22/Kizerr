@@ -32,7 +32,10 @@
 
   
 
-
+link[rel="icon"] {
+  width: 64px;
+  height: 64px;
+}
 :root {
   
   --primaryColor: #1dbf73;
