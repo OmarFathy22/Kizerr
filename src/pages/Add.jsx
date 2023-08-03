@@ -68,7 +68,7 @@ const Add = () => {
       <h1 className="w-[90%] mx-auto mb-10 text-[25px] font-bold text-[#555]">
         Add New Gig
       </h1>
-      <form onSubmit={handleSubmit} className="flex gap-[100px] w-[90%] add-gig-form mx-auto  justify-between">
+      <form onSubmit={handleSubmit} className="flex max-900:flex-col gap-[100px] w-[90%] add-gig-form mx-auto  justify-between">
         <div className="flex flex-col gap-[30px] justify-between flex-1">
           <label>Title</label>
           <input required
@@ -129,7 +129,7 @@ const Add = () => {
           />
           <button
             type="submit"
-            className="font-bold text-[20px] bg-[var(--primaryColor)] text-white  py-[15px]"
+            className="font-bold max-900:hidden block text-[20px] bg-[var(--primaryColor)] text-white  py-[15px]"
           >
             Create
           </button>
@@ -215,6 +215,12 @@ const Add = () => {
             onChange={handleChange}
           />
         </div>
+        <button
+            type="submit"
+            className="font-bold min-900:hidden block text-[20px] bg-[var(--primaryColor)] text-white  py-[15px]"
+          >
+            Create
+          </button>
       </form>
     </div>
   );

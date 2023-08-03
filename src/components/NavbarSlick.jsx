@@ -103,7 +103,7 @@ export default function NavbarSlick() {
           breakpoint: 500,
           settings: {
             slidesToShow: 2,
-            slidesToScroll: 2
+            slidesToScroll: 1
           }
         }
       ]

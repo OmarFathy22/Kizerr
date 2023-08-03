@@ -4,21 +4,35 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import Loading from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmile, BsMic } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineAttachFile } from "react-icons/md";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import moment from "moment";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiSettingsKnobs } from "react-icons/gi";
+import { HiMenu } from "react-icons/hi";
 
 const Index = () => {
   const User = JSON.parse(localStorage.getItem("currentUser"));
   const { id } = useParams();
+  const menuRef = useRef(null);
+  const [openMenu, setOpenMenu] = useState(false);
   const [MESSAGE, setMESSAGE] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenu(false);
+      }
+    }
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
   const {
     isLoading,
     error,
@@ -86,11 +100,23 @@ const Index = () => {
   if (error || errorAllConvs || errorConv) return <h1>error</h1>;
   return (
     <div className="flex w-full  h-[100vh] fixed top-0 bottom-0 left-0 right-0 ">
-      <div className="w-[25%] bg-gray-100  border-r border-r-gray-300">
-        <div className="flex justify-between h-[100px] items-center border-b border-gray-300 px-4 fixed right-[75%] top-0 left-0  ">
-          <Link to={"/messages"} className="font-bold text-[35px]">Chats</Link>
+      <div
+        className={`w-[25%] max-1200:hidden ${
+          openMenu &&
+          "max-1200:!block max-1200:fixed max-1200:!top-0 max-1200:!bottom-0 max-1200:!left-0 max-1200:!w-[70%] max-1200:max-w-[400px] max-1200:!z-[2000]"
+        } bg-gray-100  border-r border-r-gray-300`}
+      >
+        <div className="max-1200:w-[70%] max-1200:max-w-[400px] flex justify-between h-[100px] items-center border-b border-gray-300 px-4 fixed right-[75%] top-0 left-0   ">
+          <Link to={"/messages"} className="font-bold text-[35px]">
+            Chats
+          </Link>
           <div className="flex gap-3">
-            <button className="text-[25px] bg-gray-300 rounded-full p-2">
+            <button
+              onClick={() => {
+                setOpenMenu(!openMenu);
+              }}
+              className="text-[25px] bg-gray-300 rounded-full p-2"
+            >
               <AiOutlineSearch />
             </button>
             <button className="text-[25px] bg-gray-300 rounded-full p-2">
@@ -99,46 +125,57 @@ const Index = () => {
           </div>
         </div>
 
-    <div className="mt-[100px] ">
-    {AllConversations?.map((item, index) => (
-          <div
-            onClick={() => {
-              handleConv(item);
-            }}
-            key={index}
-            className={`${id == item?.id && "bg-gray-300"} cursor-pointer  truncate flex justify-between h-[100px] items-center border-b border-gray-300 px-4`}
-          >
-            <div className="flex gap-3">
-              <img
-                src={
-                  (User.isSeller ? item?.buyerImg : item?.sellerImg) ||
-                  "/no_avatar.png"
-                }
-                alt=""
-                className="h-[40px] w-[40px] rounded-full object-cover"
-              />
-              <div className="">
-                <h1 className="font-bold text-[20px]">
-                  {User.isSeller ? item?.buyerUsername : item?.sellerUsername}
-                </h1>
-                <h1  className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
-                  {item?.lastMessage || "..."}
-                </h1>
-                <p className="text-gray-500 text-[11px]">
-                  {moment(item?.updatedAt).fromNow()}
-                </p>
+        <div className="mt-[100px] ">
+          {AllConversations?.map((item, index) => (
+            <div
+              onClick={() => {
+                handleConv(item);
+              }}
+              key={index}
+              className={`${
+                id == item?.id && "bg-gray-300"
+              } cursor-pointer  truncate flex justify-between h-[100px] items-center border-b border-gray-300 px-4`}
+            >
+              <div className="flex gap-3">
+                <img
+                  src={
+                    (User.isSeller ? item?.buyerImg : item?.sellerImg) ||
+                    "/no_avatar.png"
+                  }
+                  alt=""
+                  className="h-[40px] w-[40px] rounded-full object-cover"
+                />
+                <div className="">
+                  <h1 className="font-bold text-[20px]">
+                    {User.isSeller ? item?.buyerUsername : item?.sellerUsername}
+                  </h1>
+                  <h1 className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
+                    {item?.lastMessage || "..."}
+                  </h1>
+                  <p className="text-gray-500 text-[11px]">
+                    {moment(item?.updatedAt).fromNow()}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-    </div>
+          ))}
+        </div>
       </div>
 
-      <div className="w-[75%] overflow-auto mb-[100px]">
+      <div className="w-[75%] max-1200:w-full overflow-auto mb-[100px]">
         <div className="">
           <div
-            className={`border-b border-gray-300 fixed left-[25%] top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
+            className={`border-b border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
           >
+            <div
+              ref={menuRef}
+              onClick={() => {
+                setOpenMenu(!openMenu);
+              }}
+              className="text-[30px] min-1200:hidden cursor-pointer"
+            >
+              <HiMenu />
+            </div>
             <div className="">
               <img
                 src={
@@ -154,12 +191,12 @@ const Index = () => {
                 "user"}
             </Link>
           </div>
-          <div className="mb-[50px] mt-[150px] px-[15px]">
+          <div className={`mb-[50px] mt-[150px] px-[15px] `}>
             {messages?.map((message, index) => (
               <div
                 dir={message?.userId === User?._id ? "rtl" : "ltr"}
                 key={index}
-                className="flex gap-3  flex-1 max-w-[100%]  my-[5px] "
+                className="flex gap-3  flex-1 max-w-full  my-[5px] "
               >
                 {message?.userId !== User?._id && (
                   <div className="">
@@ -173,24 +210,31 @@ const Index = () => {
                 <div className="max-w-[50%]">
                   <div
                     style={{ wordWrap: "break-word" }}
-                    className={` w-full rounded-3xl font-semibold p-4 text-gray-700 ${
+                    className={` w-full rounded-xl font-semibold py-[5px] px-[10px] text-gray-700 ${
                       message?.userId === User?._id
                         ? "bg-[#0084FF] text-white"
                         : "bg-[#e4e3e3]"
                     } `}
                   >
-                    <p dir="ltr" className="w-full">
-                      {message?.desc}
+                  <div className="flex flex-col items-start  justify-start ">
+                      <p dir="ltr" className={`w-full ${message?.desc.length < 10 && "text-center"}`}>
+                        {message?.desc}
+                      </p>
+                      <p
+                      dir="ltr"
+                      className={`font-normal text-[10px]   py-1 ${
+                        message?.userId === User?._id ? "text-end" : "text-start"
+                      } ${
+                        message?.userId === User?._id
+                          ? " text-[#e8e6e6]"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {moment(message.createdAt).format("LT")}
                     </p>
                   </div>
-                  <p
-                    dir="ltr"
-                    className={`text-gray-500 text-[13px] px-2 py-1 ${
-                      message?.userId === User?._id ? "text-end" : "text-start"
-                    }`}
-                  >
-                    {moment(message.createdAt).format('LT')}
-                  </p>
+                  </div>
+                
                 </div>
               </div>
             ))}
@@ -198,7 +242,7 @@ const Index = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className=" flex items-center justify-between fixed bottom-0 h-[100px] border-t border-gray-300 px-10 bg-gray-50 right-0 left-[25%] gap-5 "
+          className=" flex items-center justify-between fixed bottom-0 h-[100px] border-t border-gray-300 px-10 sm:px-2 bg-gray-50 right-0 left-[25%] max-1200:left-0 gap-5 "
         >
           {showEmoji && (
             <div className="absolute top-[-437px] left-[100px]">
@@ -206,9 +250,9 @@ const Index = () => {
             </div>
           )}
           <div className="flex gap-3 text-[25px] text-gray-600">
-            <span className="hover:text-[--primaryColor] transition-all cursor-pointer hover:opacity-[0.90]">
+            {/* <span className="hover:text-[--primaryColor] transition-all cursor-pointer hover:opacity-[0.90]">
               <BsMic />
-            </span>
+            </span> */}
             <span className=" transition-all cursor-pointer hover:opacity-[0.90]">
               <MdOutlineAttachFile className="hover:text-[--primaryColor] rounded-full" />
             </span>

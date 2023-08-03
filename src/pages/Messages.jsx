@@ -26,74 +26,74 @@ const Index = () => {
   if (error) return <h1>error</h1>;
   return (
     <div className="my-[100px] min-h-[60vh] relative">
-        <h1 className="font-bold text-[30px] my-10 text-[#444] w-[90%] mx-auto pl-4 ">Contacts</h1>
-      {Conversations?.length > 0 ? (
-        <table className="table-auto w-[90%] mx-auto  border border-gray-300 rounded-lg  ">
-          <tbody>
-            <tr className=" text-left bg-gray-100">
-              <th className="px-5  py-5  ">
-                {User.isSeller ? "buyer" : "Seller"}
-              </th>
-              <th>Last Message</th>
-              <th>Date</th>
-              <th className="px-5">Action</th>
-            </tr>
-          </tbody>
-          {Conversations?.map((c, index) => {
-            const lastMessage = c?.lastMessage.slice(0,50) + (c.lastMessage.length > 50 ? "..." : "");
-            return (
-              <tbody key={index}>
-                <tr
-                  className={`${
-                    ((User.isSeller && !c.readBySeller) ||
-                      (!User.isSeller && !c.readByBuyer)) &&
-                    "bg-[#1dbf730f]"
-                  }  mx-10 `}
-                >
-                  <td className="px-5 py-5  ">
-                    <h3 className="font-bold ">
-                      {User.isSeller ? c?.buyerUsername : c?.sellerUsername}
-                    </h3>
-                  </td>
-                  <td
-                    onClick={() => {
-                      navigate(`/message/${c.id}`);
-                    }}
-                    className=" pt-[20px] line-clamp-1 w-[900px] cursor-pointer"
+          <h1 className="font-bold text-[30px] my-10 text-[#444] w-[90%] mx-auto pl-4 ">Contacts</h1>
+        {Conversations?.length > 0 ? (
+          <table className="table-auto w-[90%] mx-auto  border border-gray-300 rounded-lg  ">
+            <tbody>
+              <tr className=" text-left bg-gray-100">
+                <th className="px-5  py-5  ">
+                  {User.isSeller ? "buyer" : "Seller"}
+                </th>
+                <th>Last Message</th>
+                <th>Date</th>
+                <th className="px-5">Action</th>
+              </tr>
+            </tbody>
+            {Conversations?.map((c, index) => {
+              const lastMessage = c?.lastMessage.slice(0,50) + (c.lastMessage.length > 50 ? "..." : "");
+              return (
+                <tbody key={index}>
+                  <tr
+                    className={`${
+                      ((User.isSeller && !c.readBySeller) ||
+                        (!User.isSeller && !c.readByBuyer)) &&
+                      "bg-[#1dbf730f]"
+                    }  mx-10 `}
                   >
-                    <p>{lastMessage || "...."}</p>
-                  </td>
-                  <td className="">
-                    {" "}
-                    <p>{moment(c.updatedAt).fromNow()}</p>
-                  </td>
-                  <td className="px-5">
-                    {(User.isSeller && !c.readBySeller) ||
-                    (!User.isSeller && !c.readByBuyer) ? (
-                      <button
-                        onClick={() => {
-                          handleRead(c.id);
-                        }}
-                        className=" text-white bg-[var(--primaryColor)] font-semibold text-[13px] px-3 py-2 rounded-sm"
-                      >
-                        Mark As Read
-                      </button>
-                    ) : (
-                      <h1 className="text-[--primaryColor] font-bold text-[18px]">
-                        <BsCheck2All />
-                      </h1>
-                    )}
-                  </td>
-                </tr>
-              </tbody>
-            );
-          })}
-        </table>
-      ) : (
-        <h1 className="text-center font-bold text-[25px] absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-         No Contacts Yet !
-        </h1>
-      )}
+                    <td className="px-5 py-5  ">
+                      <h3 className="font-bold ">
+                        {User.isSeller ? c?.buyerUsername : c?.sellerUsername}
+                      </h3>
+                    </td>
+                    <td
+                      onClick={() => {
+                        navigate(`/message/${c.id}`);
+                      }}
+                      className=" pt-[20px] line-clamp-1 max-w-[900px] cursor-pointer"
+                    >
+                      <p>{lastMessage || "...."}</p>
+                    </td>
+                    <td className="">
+                      {" "}
+                      <p>{moment(c.updatedAt).fromNow()}</p>
+                    </td>
+                    <td className="px-5">
+                      {(User.isSeller && !c.readBySeller) ||
+                      (!User.isSeller && !c.readByBuyer) ? (
+                        <button
+                          onClick={() => {
+                            handleRead(c.id);
+                          }}
+                          className=" text-white bg-[var(--primaryColor)] font-semibold text-[13px] px-3 py-2 rounded-sm"
+                        >
+                          Mark As Read
+                        </button>
+                      ) : (
+                        <h1 className="text-[--primaryColor] font-bold text-[18px]">
+                          <BsCheck2All />
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+        ) : (
+          <h1 className="text-center font-bold text-[25px] absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
+           No Contacts Yet !
+          </h1>
+        )}
     </div>
   );
 };

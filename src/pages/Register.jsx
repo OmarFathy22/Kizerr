@@ -91,7 +91,7 @@ const Register = () => {
             id="title"
           />
         <button
-            className="lg:block hidden clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
+            className="min-900:block hidden clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
             type="submit"
           >
             Create
@@ -114,7 +114,7 @@ const Register = () => {
                 checked={checked}
                 onChange={ handleCheck}
               />
-              <div className="w-11 h-6 bg-gray-200 rounded-full peer    dark:bg-gray-200 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[--primaryColor]"></div>
+              <div className="w-11 h-6 bg-gray-200 rounded-full peer    dark:bg-gray-200 peer-checked:after:translate-x-full peer-checked:after:mt-[1px] after:mt-[1px] peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[--primaryColor]"></div>
             </label>
         </div>
         <label className="w-full text-[#888] text-[15px]" >
@@ -147,7 +147,7 @@ const Register = () => {
             id="description"
           />
         <button
-            className="hidden md1:block clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
+            className="hidden max-900:block clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
             type="submit"
           >
             Create

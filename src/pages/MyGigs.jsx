@@ -29,14 +29,14 @@ const Index = () => {
   if (error) return <h1>Error</h1>;
   return (
     <div className="my-[100px]">
-      <div className="flex justify-between w-[70%] mx-auto my-6">
+      <div className="flex justify-between w-[90%]   mx-auto my-6">
         <h1 className="font-bold text-[30px] text-[#444]">Gigs</h1>
       </div>
-      <table className="w-[70%] mx-auto ">
+      <table className="w-[90%]   mx-auto ">
         <thead>
           <tr className=" text-left">
             <th className="pl-3">Image</th>
-            <th>Title</th>
+            <th className="sm:hidden">Title</th>
             <th>Price</th>
             <th>Sales</th>
             <th>Action</th>
@@ -48,7 +48,7 @@ const Index = () => {
               <tr className={`${index % 2 === 0 && "bg-[#1dbf730f]"} `}>
                 <td className="p-[10px] ">
                   <img
-                    className="h-[40px] w-[70px] cursor-pointer"
+                    className="h-[40px] w-[70px] object-contain cursor-pointer"
                     onClick={() => {
                       navigate(`/gig/${gig._id}`);
                     }}
@@ -56,7 +56,7 @@ const Index = () => {
                     alt=""
                   />
                 </td>
-                <td className="truncate">
+                <td className="truncate sm:hidden">
                   <h3>{gig.title}</h3>
                 </td>
                 <td className="">
