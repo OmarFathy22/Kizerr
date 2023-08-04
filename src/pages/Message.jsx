@@ -11,6 +11,7 @@ import Picker from "@emoji-mart/react";
 import moment from "moment";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiSettingsKnobs } from "react-icons/gi";
+import { MdInsertPhoto } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import upload from "../utils/Upload.js";
 
@@ -22,16 +23,23 @@ const Index = () => {
   const [MESSAGE, setMESSAGE] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [clickImage, setClickImage] = useState(false);
+  const [currImage, setCurrImage] = useState(undefined);
   const [chosenImage, setChosenImage] = useState(undefined);
   const [isUploading, setisUploading] = useState(false);
   const [fileName, setFileName] = useState("");
+  const ConvRef = useRef(null);
   const navigate = useNavigate();
+  const scrollToBottom = () => {
+    if (ConvRef.current) {
+      ConvRef.current.scrollTo({
+        top: ConvRef.current.scrollHeight + 1000,
+        behavior: "smooth",
+      });
+    }
+  };
   useEffect(() => {
     function handleClickOutside(event) {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target) 
-      ) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
         setOpenMenu(false);
       }
     }
@@ -55,7 +63,7 @@ const Index = () => {
     mutationFn: (message) => NewRequest.post("/createmessage", message),
     onSuccess: () => {
       queryClient.invalidateQueries("Messages");
-      window.scrollTo(0, document.body.scrollHeight);
+      scrollToBottom();
     },
   });
   const {
@@ -78,13 +86,18 @@ const Index = () => {
     queryFn: () => NewRequest(`/getAllConversations`).then((res) => res.data),
   });
   useEffect(() => {
-    // window.scrollTo(0, document.body.scrollHeight);
     refetch();
     refetchMessages();
   }, [id]);
   useEffect(() => {
-    // window.scrollTo(0, document.body.scrollHeight);
     refetchAllConvs();
+  }, [messages]);
+  useEffect(() => {
+    if (ConvRef.current) {
+      ConvRef.current.scrollTo({
+        top: ConvRef.current.scrollHeight + 1000
+      });
+    }
   }, [messages]);
 
   const handleConv = async (item) => {
@@ -102,7 +115,12 @@ const Index = () => {
       setisUploading(false);
     }
     const newMessage = {
-      desc: MESSAGE,
+      // @ts-ignore
+      desc: MESSAGE
+        ? MESSAGE
+        : fileName
+        ? import.meta.env.VITE_SECRET_MESSAGE
+        : "No messages yet",
       conversationId: id,
       img: media,
     };
@@ -118,7 +136,7 @@ const Index = () => {
   return (
     <div className="flex w-full  h-[100vh] fixed top-0 bottom-0 left-0 right-0 ">
       <div
-      ref={menuRef}
+        ref={menuRef}
         className={`w-[25%] max-1200:hidden ${
           openMenu &&
           "max-1200:!block max-1200:fixed max-1200:!top-0 max-1200:!bottom-0 max-1200:!left-0 max-1200:!w-[70%] max-1200:max-w-[400px] max-1200:!z-[2000]"
@@ -157,8 +175,8 @@ const Index = () => {
                     (User.isSeller ? item?.buyerImg : item?.sellerImg) ||
                     "/no_avatar.png"
                   }
-                  alt=""
-                  className="h-[40px] w-[40px] rounded-full object-cover"
+                  alt="jj"
+                  className="h-[40px] w-[40px] rounded-full object-cover df"
                 />
                 <div className="">
                   <div className="flex gap-1 items-center relative">
@@ -170,7 +188,17 @@ const Index = () => {
                     <div className=" bg-[--primaryColor]  translate-y-1 h-2 w-2 rounded-full" />
                   </div>
                   <h1 className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
-                    {item?.lastMessage || "..."}
+                    {(item?.lastMessage !==
+                      // @ts-ignore
+                      import.meta.env.VITE_SECRET_MESSAGE &&
+                      item?.lastMessage) ||
+                      (item?.lastMessage ===
+                        import.meta.env.VITE_SECRET_MESSAGE && (
+                        <div className="flex items-center gap-1 text-gray-400">
+                          <MdInsertPhoto /> <h1>photo</h1>
+                        </div>
+                      ))}
+                    {}
                   </h1>
                   <p className="text-gray-500 text-[11px]">
                     {moment(item?.updatedAt).fromNow()}
@@ -182,13 +210,15 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="w-[75%] max-1200:w-full overflow-auto mb-[100px]">
+      <div
+        ref={ConvRef}
+        className="w-[75%] max-1200:w-full overflow-auto mb-[100px]"
+      >
         <div className="">
           <div
             className={`border-b justify-between border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
           >
             <div
-              
               onClick={() => {
                 setOpenMenu(!openMenu);
               }}
@@ -196,15 +226,15 @@ const Index = () => {
             >
               <HiMenu />
             </div>
-          <div className="flex gap-2">
+            <div className="flex gap-2">
               <div className="">
                 <img
                   src={
-                    (User.isSeller ? Conv.buyerImg : Conv.sellerUserImg) ||
+                    (User.isSeller ? Conv.buyerImg : Conv.sellerImg) ||
                     "/no_avatar.png"
                   }
                   alt=""
-                  className="h-[40px] w-[40px] rounded-full object-cover"
+                  className="h-[40px] w-[40px] rounded-full object-cover dd"
                 />
               </div>
               <div className="flex gap-1 items-center ">
@@ -214,7 +244,7 @@ const Index = () => {
                 </h1>
                 <div className=" bg-[--primaryColor]  translate-y-1 h-2 w-2 rounded-full" />
               </div>
-          </div>
+            </div>
           </div>
           <div className={`mb-[50px] mt-[150px] px-[15px] `}>
             {messages?.map((message, index) => (
@@ -226,9 +256,12 @@ const Index = () => {
                 {message?.userId !== User?._id && (
                   <div className="">
                     <img
-                      src={"/no_avatar.png"}
+                      src={
+                        (User?.isSeller ? Conv?.buyerImg : Conv?.sellerImg) ||
+                        "/no_avatar.png"
+                      }
                       alt=""
-                      className="h-[40px] w-[40px] rounded-full object-cover"
+                      className="h-[40px] w-[40px] rounded-full object-cover dd"
                     />
                   </div>
                 )}
@@ -241,28 +274,28 @@ const Index = () => {
                         : "bg-[#e4e3e3]"
                     } `}
                   >
-                    <div className="flex flex-col items-start  justify-start ">
+                    <div className="flex flex-col items-start  justify-start  ">
                       <div
+                        className="w-full  flex justify-center"
                         onClick={() => {
                           setClickImage(!clickImage);
+                          setCurrImage(message?.img);
                         }}
                       >
                         {message?.img && (
                           <img
                             src={message?.img}
                             alt="gig_cover"
-                            className="object-fill max-h-[100%] max-w-[100%] cursor-pointer rounded-xl"
+                            className="object-fill max-h-[300px] max-w-full  cursor-pointer rounded-xl"
                           />
                         )}
                         {clickImage && (
-                          <div className="fixed backdrop-blur-sm top-0 left-0 opacity-[0.5] right-0 bottom-0 h-[100vh] w-[100vw] bg-[#00000080] z-[1002] flex justify-center items-center ">
-                            <div className="opacity-90 h-full max-w-[95%] cursor-pointer ">
-                              <img
-                                src={message?.img}
-                                alt="gig_cover"
-                                className="object-contain w-full h-full z-[1000] opacity-90"
-                              />
-                            </div>
+                          <div className="fixed px-[20px] top-0 left-0 opacity-[0.3]  right-0 bottom-0 h-[100vh] w-[100vw] bg-[#00000080] z-[1002] flex justify-center items-center  ">
+                            <img
+                              src={currImage}
+                              alt="gig_coverr"
+                              className="object-contain max-h-[700px]  z-[1000]  "
+                            />
                           </div>
                         )}
                       </div>
@@ -274,7 +307,9 @@ const Index = () => {
                           "text-center"
                         }`}
                       >
-                        {message?.desc}
+                        {message?.desc !== import.meta.env.VITE_SECRET_MESSAGE
+                          ? message?.desc
+                          : ""}
                       </p>
                       <p
                         dir="ltr"

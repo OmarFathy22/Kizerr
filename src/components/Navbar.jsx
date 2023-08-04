@@ -4,12 +4,12 @@ import { Link, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router";
 // import { HiMenu } from "react-icons/hi";
-import {TfiWorld} from "react-icons/tfi";
+import { TfiWorld } from "react-icons/tfi";
 import { useMediaQuery } from "react-responsive";
 import NavbarSlick from "./NavbarSlick";
 import NewRequest from "../utils/NewRequest";
 import Cookies from "js-cookie";
-import {FiLogOut} from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const sm_md = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -52,10 +52,10 @@ const Navbar = () => {
   }, []);
 
   const User = JSON.parse(localStorage.getItem("currentUser")) || {};
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     navigate(`/gigs?search=${search}`);
-  }
+  };
   const FirstNavBar = [
     {
       title: "Kizerr Business",
@@ -66,7 +66,12 @@ const Navbar = () => {
       linkto: "/gigs",
     },
     {
-      title: <h1 className="flex  items-center gap-1"><TfiWorld  className="mb-[2px] text-[13px]"/>English</h1>,
+      title: (
+        <h1 className="flex  items-center gap-1">
+          <TfiWorld className="mb-[2px] text-[13px]" />
+          English
+        </h1>
+      ),
       linkto: "/",
     },
     {
@@ -127,7 +132,7 @@ const Navbar = () => {
         `}
     >
       <div
-        className={`sm-md:px-[2%] px-[4%] flex gap-[40px]  justify-between items-center h-[80px] max-w-[3000px] mx-auto`}
+        className={`sm-md:px-[4%] px-[4%] flex gap-[40px]  justify-between items-center h-[80px] max-w-[3000px] mx-auto`}
       >
         <Link to={"/"} className=" h-[60px] flex items-center ">
           {/* <img src={fiverr_logo} alt="logo" /> */}
@@ -152,9 +157,12 @@ const Navbar = () => {
         </Link>
 
         {active2 && (
-          <form onSubmit={handleSubmit} className="flex items-center max-w-[700px] sm:hidden  flex-1  h-[45px] ">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center max-w-[700px] sm:hidden  flex-1  h-[45px] "
+          >
             <input
-                type="text"
+              type="text"
               onChange={(e) => setSearch(e.target.value)}
               className="px-[15px] h-full border-[1px]  w-full sm-md:rounded-md lg:rounded-none  lg:rounded-l-md focus:outline-none sm-md:}"
               placeholder={
@@ -163,7 +171,10 @@ const Navbar = () => {
                   : "What Service are you looking for today?"
               }
             />
-            <button type="submit" className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]">
+            <button
+              type="submit"
+              className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]"
+            >
               <BsSearch />
             </button>
           </form>
@@ -176,7 +187,11 @@ const Navbar = () => {
                 className={`text-white font-semibold text-[17px] transition-all hover:text-[#1dbf73] ${
                   location.pathname !== "/" && "!relative !bg-white !text-black"
                 }  ${item.title !== "Sign in" && "hidden lg:block"}
-                ${Object.keys(User).length !== 0 && item.title === "Sign in"  && "hidden"}
+                ${
+                  Object.keys(User).length !== 0 &&
+                  item.title === "Sign in" &&
+                  "hidden"
+                }
                 `}
                 key={index}
               >
@@ -222,9 +237,19 @@ const Navbar = () => {
                   ref={menuRef}
                   className="absolute top-[62px] right-0 w-[200px] z-[1000] rounded-md   bg-white border-[1px] border-gray-300"
                 >
-                  <li className=" flex  justify-start items-center gap-2 text-[#333] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer  p-2">
-                    <img className="h-[30px] w-[30px] rounded-full" src={User?.img || "/no_avatar.png"} alt="img" /> 
-                    <h1>  {User.username}</h1>
+                  <li
+                    onClick={() => {
+                      setOpen(false);
+                      navigate(`/profile/${User?._id}`);
+                    }}
+                    className=" flex  justify-start items-center gap-2 text-[#333] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer  p-2"
+                  >
+                    <img
+                      className="h-[30px] w-[30px] rounded-full"
+                      src={User?.img || "/no_avatar.png"}
+                      alt="img"
+                    />
+                    <h1> {User.username}</h1>
                   </li>
                   {User.isSeller
                     ? SellerMenu.map((item, index) => {

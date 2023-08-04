@@ -23,7 +23,7 @@ const Signin = () => {
      
   }
   return (
-    <div className='my-[100px] min-w-[200px] px-[10px] max-w-[500px] mx-auto'>
+    <div className='my-[100px] min-h-[49vh] px-[10px] min-w-[200px] max-w-[500px] w-[90%] mx-auto'>
       <form autoComplete='off' onSubmit={handleSubmit} action="POST" className=' flex flex-col gap-3 justify-center items-center'>
         <h1 className='font-bold text-[#666] text-[25px] mb-[20px]'>Sign in</h1>
         <label className='w-full text-[#888] text-[15px]' htmlFor="username">Username</label>

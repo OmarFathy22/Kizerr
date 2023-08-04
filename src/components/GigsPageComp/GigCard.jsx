@@ -9,11 +9,11 @@ const GigCard = ({ item }) => {
       <Link
         key={item._id}
         to={`/gig/${item?._id}`}
-        className="flex flex-col gap-2 border-[1px] border-[#d2cccc] shadow-lg rounded-sm mt-[50px] w-[320px]  "
+        className="flex flex-col gap-2 border-[1px] border-[#d2cccc] shadow-lg rounded-sm mt-[50px] max-w-[320px]  "
       >
         <div className="">
           <img
-            className="w-full !h-[250px] rounded-t-sm object-cover"
+            className="w-full max-h-[250px] rounded-t-sm object-contain"
             src={
               item?.cover ||
               "https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
@@ -35,7 +35,7 @@ const GigCard = ({ item }) => {
               {item?.username || "Lannie Coleman"}
             </h1>
           </div>
-          <p className=" line-clamp-2">
+          <p className="truncate">
             {item.title ||  "I will create a professional logo design for your brand"}
           </p>
           <div className="text-[#ffc108] flex items-center gap-1  ">

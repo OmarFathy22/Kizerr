@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import moment from "moment";
 import { BsCheck2All } from "react-icons/bs";
+import { MdInsertPhoto } from "react-icons/md";
 const Index = () => {
   const { isLoading, error, data: Conversations } = useQuery({
     queryKey: "Conversation",
@@ -25,7 +26,7 @@ const Index = () => {
   if (isLoading) return <Loading />;
   if (error) return <h1>error</h1>;
   return (
-    <div className="my-[100px] min-h-[60vh] relative">
+    <div className="my-[100px] min-h-[49vh] relative">
           <h1 className="font-bold text-[30px] my-10 text-[#444] w-[90%] mx-auto pl-4 ">Contacts</h1>
         {Conversations?.length > 0 ? (
           <table className="table-auto w-[90%] mx-auto  border border-gray-300 rounded-lg  ">
@@ -61,11 +62,20 @@ const Index = () => {
                       }}
                       className=" pt-[20px] line-clamp-1 max-w-[900px] cursor-pointer"
                     >
-                      <p>{lastMessage || "...."}</p>
+                      <p>  {(c?.lastMessage !==
+                      // @ts-ignore
+                      import.meta.env.VITE_SECRET_MESSAGE &&
+                      c?.lastMessage) ||
+                      (c?.lastMessage ===
+                        import.meta.env.VITE_SECRET_MESSAGE && (
+                        <div className="flex items-center gap-1 text-gray-400">
+                          <MdInsertPhoto /> <h1>photo</h1>
+                        </div>
+                      ))}</p>
                     </td>
                     <td className="">
                       {" "}
-                      <p>{moment(c.updatedAt).fromNow()}</p>
+                      <p className="text-[12px]">{moment(c.updatedAt).fromNow()}</p>
                     </td>
                     <td className="px-5">
                       {(User.isSeller && !c.readBySeller) ||

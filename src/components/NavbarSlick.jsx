@@ -99,10 +99,11 @@ export default function NavbarSlick() {
             slidesToScroll: 2
           }
         },
+      
         {
-          breakpoint: 500,
+          breakpoint: 450,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1,
             slidesToScroll: 1
           }
         }
@@ -111,7 +112,7 @@ export default function NavbarSlick() {
     };
     return (
       <div>
-      <Slider {...settings} className={`pl-[12px] w-full  mx-auto active2   ${location.pathname === "/message/" + id && "hidden"}`}>
+      <Slider {...settings} className={`pl-[12px] w-full  mx-auto active2 sm:hidden   ${location.pathname === "/message/" + id && "hidden"}`}>
         {SecondNavBar.map((item, index) => {
             return (
               <li

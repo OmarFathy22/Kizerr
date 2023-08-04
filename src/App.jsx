@@ -13,7 +13,8 @@ import Signin from "./pages/Signin";
 import Register from "./pages/Register";
 import Success from "./pages/Success";
 import Payment from "./pages/Payment";
-import { Outlet } from "react-router-dom";
+import Profile from "./pages/Profile";
+import { Outlet, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -21,6 +22,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
+  const {id} = useParams()
   // clears sessionStorage after 5 minutes
   useEffect(() => {
     const clearSessionStorage = () => {
@@ -33,7 +35,9 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
   // Automatically scrolls to top whenever pathname changes
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if(location.pathname !== `/message/${id}`){
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
   return <div></div>;
 };
@@ -103,6 +107,10 @@ const router = createBrowserRouter([
         path: "/payment/:id",
         element: <Payment />,
       },
+      {
+        path:"/profile/:id",
+        element:<Profile/>
+      }
     ],
   },
 ]);

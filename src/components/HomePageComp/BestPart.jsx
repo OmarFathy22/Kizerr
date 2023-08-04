@@ -41,7 +41,7 @@ const BestPart = () => {
   const bgHero = "https://fiverr-res.cloudinary.com/q_auto,f_auto,w_700,dpr_1.0/v1/attachments/generic_asset/asset/089e3bb9352f90802ad07ad9f6a4a450-1599517407052/selling-proposition-still-1400-x1.png";
   const videoBtn = "https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/desktop-play-button.bab1740.png"
   return (
-    <div className='min-h-[500px] bg-[#e5f5ed]  flex flex-col items-center lg:flex-row lg:items-start  py-[100px] px-[2%] mt-[100px] gap-[40px] '>
+    <div className='min-h-[500px] sm:pl-4 bg-[#e5f5ed]  flex flex-col items-center lg:flex-row lg:items-start  py-[100px] px-[2%] mt-[100px] gap-[40px] '>
       <div className='flex flex-col gap-x-[20px] gap-y-[20px]  w-full '> 
         <h1 className='text-[35px] sm:text-[30px] font-bold text-[#1d1d1d] mb-2 '>The best Part? Everything.</h1>
         {data.map((item , index) => (

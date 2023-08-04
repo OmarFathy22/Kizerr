@@ -28,7 +28,7 @@ const Index = () => {
   if (isLoading) return <Loading />;
   if (error) return <h1>Error</h1>;
   return (
-    <div className="my-[100px]">
+    <div className="my-[100px] min-h-[49vh]">
       <div className="flex justify-between w-[90%]   mx-auto my-6">
         <h1 className="font-bold text-[30px] text-[#444]">Gigs</h1>
       </div>
@@ -66,8 +66,9 @@ const Index = () => {
                   {" "}
                   <p>{gig.sales} </p>
                 </td>
-                <td className="text-red-600 text-[30px]">
+                <td className="text-red-600 text-[30px] sm:text-[20px]">
                   <button
+                  
                     onClick={() => {
                       handleDelete(gig);
                     }}

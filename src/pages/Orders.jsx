@@ -45,7 +45,7 @@ const Index = () => {
   if (isLoadingOrders) return <Loading />;
   if (errorOrders) return <h1>Error....</h1>;
   return (
-    <div className="my-[100px] min-h-[60vh]  relative">
+    <div className="my-[100px] min-h-[49vh]  relative">
       <div className="flex justify-between w-[90%] sm:w-[98%] mx-auto my-6">
         <h1 className="font-bold text-[30px] text-[#444]">Orders</h1>
       </div>

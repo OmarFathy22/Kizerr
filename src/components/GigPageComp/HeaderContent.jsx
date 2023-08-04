@@ -43,9 +43,9 @@ const GigUser = ({ gig, seller }) => {
 };
 const Category = ({ gig }) => {
   return (
-    <div >
-      <p className="text-[#888] uppercase text-[25px]  mb-3">{gig?.cat}</p>
-      <h1 className="text-[30px] font-semibold mb-3">{gig?.title}</h1>
+    <div  className="break-all">
+      <p className="text-[#888] uppercase text-[25px] mb-3 sm:text-[20px]">{gig?.cat}</p>
+      <h1 className="text-[30px] font-semibold mb-3 sm:text-[15px]">{gig?.title}</h1>
     </div>
   );
 };

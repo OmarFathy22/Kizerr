@@ -64,7 +64,7 @@ const Career = () => {
           to={"/"} key={index} className='flex flex-col justify-center items-center'>
             <img className={`h-[50px] w-[50px]`} src={item.img} alt="" />
             <hr className={`w-[50px] border-[1px] ${index === currItem ? isHovering : ""}`} />
-            <h3 className='mt-1'>{item.title}</h3>
+            <h3 className='mt-1 sm:text-[13px]'>{item.title}</h3>
           </Link>
         ))}
       </ul>

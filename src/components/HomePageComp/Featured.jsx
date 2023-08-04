@@ -76,14 +76,14 @@ function Featured() {
         </form>
 
         <ul className="w-full">
-          <h6 className="inline-block text-white text-[15px] font-semibold">
+          <h6 className="inline-block text-white text-[15px] sm:block sm:text-center sm:mb-2 sm:text-[10px] font-semibold">
             Popular: &nbsp;
           </h6>
 
           {Popular.map((item, index) => (
             <li
               key={index}
-              className="inline-block border-[1px] mr-2 hover:bg-white transition-all hover:text-black cursor-pointer border-white rounded-full p-[5px] px-[10px] text-white text-[8px] md:text-[10px] lg:text-[17px] font-semibold"
+              className="mb-2 inline-block border-[1px] mr-2 sm:!text-[8px] hover:bg-white transition-all hover:text-black cursor-pointer border-white rounded-full p-[5px] px-[10px] text-white text-[8px] sm-md:text-[10px] lg:text-[17px] font-semibold"
             >
               {item}
             </li>

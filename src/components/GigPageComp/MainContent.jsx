@@ -5,13 +5,14 @@ import GigSlider from "./GigSlider";
 import SideContent from "./SideContent";
 import { PeopleSay } from "../../../data";
 import { AiFillStar } from "react-icons/ai";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import NewRequest from "../../utils/NewRequest";
 import Loading from "../Loading";
 import Reviews from "./Reviews";
 import moment from "moment";
 import handleImageError from "../../utils/HandleImgErr";
+import { Link } from "react-router-dom";
 
 // Parse the date string
 
@@ -123,40 +124,58 @@ const AboutGig = ({ gig }) => {
       <h1 className="text-[20px] font-bold my-[20px]">About this gig</h1>
       <div className="text-[#555]">{gig?.desc}</div>
       <hr className="my-[30px]" />
-      <div className="flex justify-between flex-wrap gap-5">
-        <div className="">
-          <p className="text-[#888]">Design style</p>
-          <p className="text-[#666]">Illustrative</p>
-        </div>
-        <div>
-          <p className="text-[#888]">Genre</p>
-          <p className="text-[#666]">
-            Arts Children&apos;s books Comic Fantasy
-          </p>
-        </div>
-        <div>
-          <p className="text-[#888]">File format</p>
-          <p className="text-[#666]">JPG PDF PNG PSD</p>
-        </div>
-      </div>
     </div>
   );
 };
 
 const AboutSellerHeader = ({ seller }) => {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const User = JSON.parse(localStorage.getItem("currentUser"));
+  const handleContact = async () => {
+    if (!User || User._id === seller?._id) {
+      setError("You can't contact yourself");
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return;
+    }
+    const id = seller?._id + User?._id;
+    try {
+      const res = await NewRequest.get(`/getConversation/${id}`);
+      navigate(`/message/${res.data.id}`);
+    } catch (error) {
+      if (error.response.status === 404) {
+        const res = await NewRequest.post(`/createConversation`, {
+          to: seller?._id,
+          buyerUsername: User?.username,
+          buyerImg: User?.img,
+          sellerUsername: seller?.username,
+          sellerImg: seller?.img,
+          lastMessage: "",
+        });
+        navigate(`/message/${res.data.id}`);
+      }
+    }
+  };
   return (
     <div className="xl:w-[60%]  w-fit  sm-md:mx-auto mt-[100px]">
       <h1 className="text-[20px] font-bold my-[20px]">About the Seller</h1>
       <div className="flex gap-[30px]">
-        <div>
+        <Link to={`/profile/${seller?._id}`}>
           <img
             className={`rounded-full h-[120px] w-[120px] object-cover  `}
             src={seller?.img || "/no_avatar.png"}
             alt="img"
           />
-        </div>
+        </Link>
         <div className="flex flex-col items-start gap-1 ">
-          <h1 className="text-[20px] font-bold">{seller.username}</h1>
+          <Link
+            to={`/profile/${seller?._id}`}
+            className="text-[20px] font-bold"
+          >
+            {seller.username}
+          </Link>
           <h1 className="text-[18px] text-[#555] font-medium">
             {seller?.title || "AI Art Expert"}
           </h1>
@@ -166,9 +185,15 @@ const AboutSellerHeader = ({ seller }) => {
             <AiFillStar />
             <AiFillStar />
           </h1>
-          <button className="p-[10px] px-[30px] sm:px-2 mt-[20px] border border-gray-500  rounded-md hover:text-white hover:bg-[#888] transition-all ">
-            Contact me
+          <button
+            onClick={handleContact}
+            className="p-[10px] px-[30px] sm:px-2 mt-[20px] border border-gray-500  rounded-md hover:text-white hover:bg-[#888] transition-all "
+          >
+            Contact Me
           </button>
+          {error && (
+            <div className="text-red-500 font-medium text-[15px]">{error}</div>
+          )}
         </div>
       </div>
     </div>
@@ -324,7 +349,7 @@ const MainContent = () => {
       {seller && (
         <div>
           <div className="hidden xl:flex  w-[400px]  flex-col gap-[20px]   xl:float-right sticky    !top-0 ">
-            <SideContent  gig={gig} />
+            <SideContent gig={gig} />
           </div>
           <HeaderContent gig={gig} seller={seller} />
           <GigMedia gig={gig} />

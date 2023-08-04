@@ -74,7 +74,7 @@ const Footer = () => {
   const location = useLocation();
   const { id } = useParams();
   return (
-    <div className={`${location.pathname === ('/message/' + id) && "hidden"} `}>
+    <div className={`${location.pathname === ('/message/' + id) && "hidden"}  `}>
       <hr className=" border-gray-300 sm:hidden" />
       <div className="px-[4%] pt-[2%]">
         <div className="grid grid-cols-5 md:grid-cols-3 sm:hidden gap-[20px]">
