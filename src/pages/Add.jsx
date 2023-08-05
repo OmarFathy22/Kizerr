@@ -81,7 +81,7 @@ const Add = () => {
           />
           <label>Category</label>
           <select name="cat" id="category" onChange={handleChange}>
-            <option value="Graphics & Design">Graphics & Design</option>
+            <option value="Graphic Design">Graphic Design</option>
             <option value="Digital Marketing">Digital Marketing</option>
             <option value="Writing & Translation">Writing & Translation</option>
             <option value="Video & Animation">Video & Animation</option>
