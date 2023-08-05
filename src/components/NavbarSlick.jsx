@@ -113,7 +113,7 @@ export default function NavbarSlick() {
     return (
       <div>
       <Slider {...settings} className={`pl-[12px] w-full  mx-auto active2 sm:hidden   ${location.pathname === "/message/" + id && "hidden"}`}>
-        {SecondNavBar.map((item, index) => {
+        {SecondNavBar?.map((item, index) => {
             return (
               <li
                 key={index}

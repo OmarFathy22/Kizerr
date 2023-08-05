@@ -61,7 +61,7 @@ const Index = () => {
               <th>Action</th>
             </tr>
           </tbody>
-          {orders.map((order, index) => {
+          {orders?.map((order, index) => {
             return (
               <tbody key={index}>
                 <tr

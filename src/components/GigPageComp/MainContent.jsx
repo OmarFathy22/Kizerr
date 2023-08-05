@@ -67,7 +67,7 @@ const WhatPeopleSay = () => {
             </a>
           </div>
           <GigSlider>
-            {reviews.map((item, index) => {
+            {reviews?.map((item, index) => {
               if (index > 4) return;
               return (
                 <div
@@ -228,11 +228,11 @@ const AboutSellerBody = ({ seller }) => {
   return (
     <div className="xl:w-[60%] w-full  sm-md:mx-auto mt-[50px] border p-[20px] rounded-md">
       <ul className="grid grid-cols-3 gap-[30px] sm:!grid-cols-2">
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <li key={index} className="flex flex-col gap-1">
             <h1 className="text-[#666]">{item.title}</h1>
             {Array.isArray(item.value) ? (
-              item.value.map((item, index) => (
+              item.value?.map((item, index) => (
                 <h1 key={index} className="text-[#666] font-semibold">
                   {item}
                 </h1>

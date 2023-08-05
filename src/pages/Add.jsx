@@ -40,7 +40,7 @@ const Add = () => {
     try {
       const Cover = await upload(cover);
       const Images = await Promise.all(
-        [...images].map(async (item) => {
+        [...images]?.map(async (item) => {
           const url = await upload(item);
           return url;
         })
@@ -180,7 +180,7 @@ const Add = () => {
               }}
             />
             <div className="flex flex-wrap gap-3">
-              {state.features.map((f, i) => (
+              {state.features?.map((f, i) => (
                 <div
                   className="flex items-center w-fit mt-2 rounded-md gap-1 border font-bold px-4 py-2"
                   key={i}

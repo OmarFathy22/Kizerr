@@ -38,7 +38,7 @@ function Reviews(){
   console.log(reviews)
   return (
     <div className="xl:w-[60%] w-full my-[100px]" id={"all_reviews"}>
-    {isLoadingReviews ?<Loading />: errorReviews ? <h1>error</h1> : reviews.map((item, index) => (
+    {isLoadingReviews ?<Loading />: errorReviews ? <h1>error</h1> : reviews?.map((item, index) => (
         <div
           key={index}
           className={`flex justify-center flex-col gap-[10px]  border-b  mx-auto  p-[20px] ${

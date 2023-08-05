@@ -189,7 +189,7 @@ const Navbar = () => {
         )}
 
         <ul className="flex gap-[30px] items-center sm:translate-y-[7px]">
-          {FirstNavBar.map((item, index) => {
+          {FirstNavBar?.map((item, index) => {
             return (
               <li
                 className={`text-white font-semibold text-[17px] transition-all hover:text-[#1dbf73] ${
@@ -257,7 +257,7 @@ const Navbar = () => {
                     <h1> {User.username}</h1>
                   </li>
                   {User.isSeller
-                    ? SellerMenu.map((item, index) => {
+                    ? SellerMenu?.map((item, index) => {
                         return (
                           <li
                             onClick={() => {
@@ -271,7 +271,7 @@ const Navbar = () => {
                           </li>
                         );
                       })
-                    : MenuBuyer.map((item, index) => {
+                    : MenuBuyer?.map((item, index) => {
                         return (
                           <li
                             onClick={() => {

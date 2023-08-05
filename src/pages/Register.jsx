@@ -205,7 +205,7 @@ const Register = () => {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {skills.map((s, i) => (
+                  {skills?.map((s, i) => (
                     <div
                       className="flex items-center w-fit mt-2 rounded-md gap-1 border-[2px] font-bold px-4 py-2 "
                       key={i}
@@ -247,7 +247,7 @@ const Register = () => {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {languages.map((l, i) => (
+                  {languages?.map((l, i) => (
                     <div
                       className="flex items-center w-fit mt-2 rounded-md gap-1 border-[2px] font-bold px-4 py-2   "
                       key={i}

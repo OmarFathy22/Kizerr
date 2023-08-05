@@ -81,7 +81,7 @@ const Footer = () => {
           <div>
             <h1 className="text-[#383838] font-bold text-[20px]">Categories</h1>
             <ul className="mt-[20px]">
-              {Categories.map((item, index) => (
+              {Categories?.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px] hover:text-[#1dbf73] cursor-pointer"
@@ -96,7 +96,7 @@ const Footer = () => {
           <div>
             <h1 className="text-[#514f4f] font-bold text-[20px]">Community</h1>
             <ul className="mt-[20px]">
-              {Community.map((item, index) => (
+              {Community?.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px] hover:text-[#1dbf73] cursor-pointer"
@@ -112,7 +112,7 @@ const Footer = () => {
               More From Kizerr
             </h1>
             <ul className="mt-[20px]">
-              {More_From_Kizerr.map((item, index) => (
+              {More_From_Kizerr?.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px] hover:text-[#1dbf73] cursor-pointer"
@@ -125,7 +125,7 @@ const Footer = () => {
           <div>
             <h1 className="text-[#514f4f] font-bold text-[20px]">Support</h1>
             <ul className="mt-[20px]">
-              {Support.map((item, index) => (
+              {Support?.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px] hover:text-[#1dbf73] cursor-pointer"
@@ -138,7 +138,7 @@ const Footer = () => {
           <div>
             <h1 className="text-[#514f4f] font-bold text-[20px]">About</h1>
             <ul className="mt-[20px]">
-              {About.map((item, index) => (
+              {About?.map((item, index) => (
                 <li
                   key={index}
                   className="text-[#514f4f] text-[15px] mb-[10px]   hover:text-[#1dbf73] cursor-pointer"
