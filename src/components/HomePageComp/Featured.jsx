@@ -3,10 +3,6 @@ import { useEffect } from "react";
 import {BsSearch} from "react-icons/bs";
 import {AiFillStar} from "react-icons/ai";
 import { useNavigate } from "react-router";
-import NewRequest from "../../utils/NewRequest";
-
-// make the above oject array of objects
-// then use the map function to iterate over the array
 
 const HeroBg = [
   {

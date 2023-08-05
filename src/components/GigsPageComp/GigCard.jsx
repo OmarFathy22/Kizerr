@@ -1,9 +1,18 @@
-import  React from "react";
+import  React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import NewRequest from "../../utils/NewRequest";
+import Loading from "../../components/Loading";
 const GigCard = ({ item }) => {
-
+  const { isLoading, error, data:user } = useQuery({
+    queryKey: "userId",
+    queryFn: () => NewRequest(`users/${item?.userId}`).then((res) => res.data),
+    enabled:!!item
+  });
+  if(isLoading) return <Loading/>
+  if(error) return <div>error</div>
   return (
     <div>
       <Link
@@ -13,7 +22,7 @@ const GigCard = ({ item }) => {
       >
         <div className="">
           <img
-            className="w-full max-h-[250px] rounded-t-sm object-contain"
+            className="w-full h-[250px] rounded-t-sm object-fill"
             src={
               item?.cover ||
               "https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
@@ -26,8 +35,8 @@ const GigCard = ({ item }) => {
             <img
               className="rounded-full h-[40px] w-[40px] !object-cover  "
               src={
-                item.subImg ||
-                "https://images.pexels.com/photos/1036627/pexels-photo-1036627.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                user?.img ||
+                "/no_avatar.png"
               }
               alt="img"
             />

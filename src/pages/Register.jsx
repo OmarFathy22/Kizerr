@@ -37,7 +37,7 @@ const Register = () => {
       setError(err.response.data);
       setTimeout(() => {
         setError(null);
-      }, 5000);
+      }, 10000);
     }
   };
   const handleSubmit = async (e) => {
@@ -65,7 +65,7 @@ const Register = () => {
       setError(err.response.data);
       setTimeout(() => {
         setError(null);
-      }, 5000);
+      }, 10000);
     }
   };
   const handleChange = (e) => {
@@ -147,7 +147,7 @@ const Register = () => {
             className="min-900:block hidden clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
             type="submit"
           >
-            {loading ? "Processing..." : "Create Account"}
+            {error ? "Error" : (loading ? "Processing..." : "Create Account")}
           </button>
         </div>
         <div className="flex flex-col gap-3 flex-1 min-w-[300px] max-w-[400px] mx-auto  !max-h-[900px]">
@@ -283,7 +283,7 @@ const Register = () => {
             className="hidden max-900:block clickable bg-[--primaryColor] text-white p-3 w-full max-w-[400px] mx-auto rounded-sm font-bold  "
             type="submit"
           >
-            {loading ? "Processing..." : "Create Account"}
+            {error ? "Error" : (loading ? "Processing..." : "Create Account")}
           </button>
         </div>
       </form>

@@ -56,7 +56,7 @@ const Profile = () => {
     }
   };
   if (loadingInfo || loadingGigs) return <Loading/>;
-  if (errorInfo || errorGigs) return "An error has occurred: " + error.message;
+  if (errorInfo || errorGigs) return "An error has occurred: ";
   const Info = () => {
     return (
       <div className="w-[35%] max-w-[450px] max-900:px-4 max-900:w-full">
@@ -67,9 +67,9 @@ const Profile = () => {
             <h1 className="sm:text-[13px]">Online</h1>
           </div>
           <div className="my-10 mx-auto flex flex-col items-center  max-w-[90%] ">
-            <div className=" Image max-h-[200px] max-w-[200px] sm:w-[130px] sm-h-[130px]">
+            <div className="">
               <img
-                className="object-contain rounded-full "
+                className="rounded-full overflow-hidden sm:w-[130px] sm:h-[130px] w-40 h-40 object-cover  "
                 src={user?.img}
                 alt=""
               />

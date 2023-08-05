@@ -43,7 +43,7 @@ const GigUser = ({ gig, seller }) => {
 };
 const Category = ({ gig }) => {
   return (
-    <div  className="break-all">
+    <div  className="">
       <p className="text-[#888] uppercase text-[25px] mb-3 sm:text-[20px]">{gig?.cat}</p>
       <h1 className="text-[30px] font-semibold mb-3 sm:text-[15px]">{gig?.title}</h1>
     </div>
@@ -53,7 +53,7 @@ const Category = ({ gig }) => {
 const MainContent = ({ gig, seller }) => {
   console.log("from MainContent", seller);
   return (
-    <div className="flex-[2] flex flex-col gap-[20px]">
+    <div className="flex-[2] xl:max-w-[60%] sm-md:w-full flex flex-col gap-[20px]">
       {seller && (
         <div>
           <Category gig={gig}  />

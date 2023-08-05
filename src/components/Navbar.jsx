@@ -62,6 +62,10 @@ const Navbar = () => {
       linkto: "/",
     },
     {
+      title: "Kizerr Business",
+      linkto: "/",
+    },
+    {
       title: "Explore",
       linkto: "/gigs",
     },
@@ -86,6 +90,10 @@ const Navbar = () => {
 
   const SellerMenu = [
     {
+      title: "Profile",
+      linkto: `/profile/${User?._id}`,
+    },
+    {
       title: "My Gigs",
       linkto: "/mygigs",
     },
@@ -102,7 +110,7 @@ const Navbar = () => {
       linkto: "/messages",
     },
   ];
-  const MenuBuyer = [...SellerMenu.slice(2)];
+  const MenuBuyer = [...SellerMenu.slice(3)];
   const handleLogout = async () => {
     try {
       await NewRequest.post("/logout");
@@ -173,7 +181,7 @@ const Navbar = () => {
             />
             <button
               type="submit"
-              className="sm-md:hidden w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]"
+              className=" w px-[30px] !h-full text-white hover:bg-[#222] transition-all  rounded-r-md bg-[black]"
             >
               <BsSearch />
             </button>
@@ -186,7 +194,7 @@ const Navbar = () => {
               <li
                 className={`text-white font-semibold text-[17px] transition-all hover:text-[#1dbf73] ${
                   location.pathname !== "/" && "!relative !bg-white !text-black"
-                }  ${item.title !== "Sign in" && "hidden lg:block"}
+                }  ${item.title !== "Sign in" && "hidden min-1400:block"}
                 ${
                   Object.keys(User).length !== 0 &&
                   item.title === "Sign in" &&
@@ -227,7 +235,7 @@ const Navbar = () => {
               >
                 <img
                   title={User?.name}
-                  className="w-[42px] h-[42px] object-fill rounded-full"
+                  className="w-[42px] h-[42px] object-cover rounded-full"
                   src={User?.img || "/no_avatar.png"}
                   alt="user"
                 />
@@ -238,10 +246,7 @@ const Navbar = () => {
                   className="absolute top-[62px] right-0 w-[200px] z-[1000] rounded-md   bg-white border-[1px] border-gray-300"
                 >
                   <li
-                    onClick={() => {
-                      setOpen(false);
-                      navigate(`/profile/${User?._id}`);
-                    }}
+                  
                     className=" flex  justify-start items-center gap-2 text-[#333] hover:bg-gray-100 transition-all border-b font-bold cursor-pointer  p-2"
                   >
                     <img

@@ -35,6 +35,7 @@ function Reviews(){
   const handleDelete = async (item) => {
       mutation.mutate(item?._id);
   };
+  console.log(reviews)
   return (
     <div className="xl:w-[60%] w-full my-[100px]" id={"all_reviews"}>
     {isLoadingReviews ?<Loading />: errorReviews ? <h1>error</h1> : reviews.map((item, index) => (
@@ -49,7 +50,7 @@ function Reviews(){
               <img
                 className=" rounded-full !object-cover h-[30px] w-[30px]"
                 src={item?.img || "/no_avatar.png"}
-                alt="img"
+                alt="hhh"
               />
               <div>
                 <h1 className="font-semibold text-[#555]">{item?.username}</h1>

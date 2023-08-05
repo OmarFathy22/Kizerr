@@ -69,7 +69,7 @@ const SlickSlider = ({children}) => {
   };
     return (
       <div className="">
-        <Slider {...settings} className="lg:max-w-[60%] w-full  mt-[20px]">
+        <Slider {...settings} className="max-w-[60%] w-full max-1200:mx-auto max-1200:max-w-[800px] mt-[20px]">
         {children}
         </Slider>
         

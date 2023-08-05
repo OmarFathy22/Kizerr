@@ -34,7 +34,8 @@ const Add = () => {
     });
     setFeature("");
   };
-  const handleUploading = async (params) => {
+  const handleUploading = async (e) => {
+    e.preventDefault();
     setIsUploading(true);
     try {
       const Cover = await upload(cover);
@@ -90,7 +91,6 @@ const Add = () => {
             <option value="Business">Business</option>
             <option value="Lifestyle">Lifestyle</option>
             <option value="Photography">Photography</option>
-            <option value="End-to-End Projects">End-to-End Projects</option>
           </select>
           <div>
             <label>Cover Image</label>

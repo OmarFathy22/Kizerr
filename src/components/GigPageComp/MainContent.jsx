@@ -23,7 +23,7 @@ const GigMedia = ({ gig }) => {
         {gig?.images?.map((item, index) => (
           <div key={index} className="flex justify-center items-center ">
             <img
-              className="object-cover min-h-[300px] sm:max-h-[300px] max-h-[500px] w-full"
+              className="object-fill min-h-[300px] sm:max-h-[300px] max-h-[500px] w-full"
               src={
                 item ||
                 "https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
@@ -204,23 +204,25 @@ const AboutSellerBody = ({ seller }) => {
   const data = [
     {
       title: "From",
-      value: "Belarus",
+      value: seller?.country || "Belarus",
     },
     {
       title: "Avg. response time",
-      value: "4 hours",
+      value: "2 hours",
     },
     {
       title: "Member Since",
-      value: "Feb 2020",
+      value: moment(seller?.createdAt).format("MMM YYYY"),
     },
     {
       title: "Last delivery",
-      value: "about 8 hours",
+      value: "about 2 days",
     },
     {
       title: "Languages",
-      value: "English, Russian, Belarusian",
+      value: [
+        ...seller?.languages || ["English", "Russian", "Arabic"]
+      ],
     },
   ];
   return (
@@ -229,7 +231,16 @@ const AboutSellerBody = ({ seller }) => {
         {data.map((item, index) => (
           <li key={index} className="flex flex-col gap-1">
             <h1 className="text-[#666]">{item.title}</h1>
-            <h1 className="text-[#666] font-semibold">{item.value}</h1>
+            {Array.isArray(item.value) ? (
+              item.value.map((item, index) => (
+                <h1 key={index} className="text-[#666] font-semibold">
+                  {item}
+                </h1>
+              ))
+            ) : (
+              <h1 className="text-[#666] font-semibold">{item.value}</h1>
+            )
+            }
           </li>
         ))}
       </ul>

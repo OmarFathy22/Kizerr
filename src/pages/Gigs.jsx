@@ -7,36 +7,38 @@ import { useQuery } from "react-query";
 import NewRequest from "../utils/NewRequest";
 import SkeletonLoading from "../components/SkeletonLoading";
 
-
 const Gigs = () => {
-
   const { search } = useLocation();
   const [min, setMin] = useState("0");
   const [max, setMax] = useState("1000");
   const [open, setOpen] = useState(false);
   const [sortby, setSortby] = useState("createdAt");
   const [bestOrPop, setBestOrPop] = useState("Newest");
-
-  const { isLoading,isFetching , error, data, refetch } = useQuery(
+ const params = new URLSearchParams(search);
+  const category = params.get("cat");
+  const special = params.get("special");
+  console.log(category, )
+  const { isLoading, isFetching, error, data, refetch } = useQuery(
     "repoData",
     async () =>
       await NewRequest(
-        `/gigs${search}&min=${min}&max=${max}&sort=${sortby}`
+        `/gigs?cat=${encodeURIComponent(category)}&min=${min}&max=${max}&sort=${sortby}`
       ).then((res) => res.data)
   );
   useEffect(() => {
     refetch();
   }, [sortby]);
-  
+
   const apply = () => {
     refetch();
   };
+  if(error)return <h1>Error...</h1>
   return (
-    <div className="my-[50px]">
+    <div className="my-[50px] ">
       <div className="mx-[4%]">
         <div className="flex flex-col gap-5">
-          <p className="text-[#b8b6b6]">Graphic & Design</p>
-          <h1 className="text-[30px] font-semibold">AI Artist</h1>
+          <p className="text-[#b8b6b6] capitalize">{category}</p>
+          <h1 className="text-[30px] font-semibold capitalize">{special}</h1>
           <p className="text-[#444]">
             Explore the boundaries of art and technology with Fiverr&apos;s AI
             artists
@@ -112,13 +114,23 @@ const Gigs = () => {
           </div>
         </div>
       </div>
-    
-      <ul className={`flex flex-wrap gap-10 justify-center items-center ${isLoading || isFetching  ? 'mt-10' : '' }`}>
-        {data?.map((item, index) => {
-          if(isLoading || isFetching )return <SkeletonLoading key={index}/>
-          return <GigCard key={index} item={item}  />;
-        })}
-      </ul>
+
+      {data?.length > 0 ? (
+        <ul
+          className={`flex flex-wrap gap-10 justify-center items-center ${
+            isLoading || isFetching ? "mt-10" : ""
+          }`}
+        >
+          {data?.map((item, index) => {
+            if (isLoading || isFetching) return <SkeletonLoading key={index} />;
+            return <GigCard key={index} item={item} />;
+          })}
+        </ul>
+      ) : (
+        <div className="flex justify-center min-h-[300px]  !h-full  items-center mt-10">
+          <p className="text-[#888] sm:text-[20px] text-[30px]">No gigs found</p>
+        </div>
+      )}
     </div>
   );
 };
