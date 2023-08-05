@@ -6,6 +6,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useQuery } from "react-query";
 import NewRequest from "../utils/NewRequest";
 import SkeletonLoading from "../components/SkeletonLoading";
+import Loading from "../components/Loading";
 
 const Gigs = () => {
   const { search } = useLocation();
@@ -14,10 +15,10 @@ const Gigs = () => {
   const [open, setOpen] = useState(false);
   const [sortby, setSortby] = useState("createdAt");
   const [bestOrPop, setBestOrPop] = useState("Newest");
+  const [NoGigs , setNoGigs] = useState('Loading...')
  const params = new URLSearchParams(search);
   const category = params.get("cat");
   const special = params.get("special");
-  console.log(category, )
   const { isLoading, isFetching, error, data, refetch } = useQuery(
     "repoData",
     async () =>
@@ -28,11 +29,17 @@ const Gigs = () => {
   useEffect(() => {
     refetch();
   }, [sortby]);
+  useEffect(() => {
+      setTimeout(() => {
+          setNoGigs('No Gigs Found')
+      }, 500);
+  },[]);
 
   const apply = () => {
     refetch();
   };
-  if(error)return <h1>Error...</h1>
+  if(isLoading)return <Loading/>
+  if (error) return "An error has occurred";
   return (
     <div className="my-[50px] ">
       <div className="mx-[4%]">
@@ -128,7 +135,7 @@ const Gigs = () => {
         </ul>
       ) : (
         <div className="flex justify-center min-h-[300px]  !h-full  items-center mt-10">
-          <p className="text-[#888] sm:text-[20px] text-[30px]">No gigs found</p>
+          <p className="text-[#888] sm:text-[20px] text-[30px]">{NoGigs}</p>
         </div>
       )}
     </div>
