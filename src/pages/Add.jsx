@@ -114,7 +114,7 @@ const Add = () => {
             />
             <button
               onClick={handleUploading}
-              disabled={!cover || !images || images.length < 1}
+              disabled={!cover || !images || images.length < 1 }
               className=" disabled:opacity-80 disabled:cursor-not-allowed mt-3 bg-[--primaryColor] py-2 px-4 rounded-md text-white"
             >
               {isUploading ? "uploading..." : "upload"}
