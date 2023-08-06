@@ -13,6 +13,12 @@ const GigCard = ({ item }) => {
   });
   if(isLoading) return <Loading/>
   if(error) return <div>error</div>
+  const itemCover = item?.cover?.includes("https")
+      ? item?.cover
+      : item?.cover?.replace("http", "https");
+      const userImg = user?.img?.includes("https")
+      ? user?.img
+      : user?.img?.replace("http", "https");
   return (
     <div>
       <Link
@@ -24,7 +30,7 @@ const GigCard = ({ item }) => {
           <img
             className="w-full h-[250px] rounded-t-sm object-fill"
             src={
-              item?.cover ||
+              itemCover ||
               "https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
             }
             alt="img"
@@ -35,7 +41,7 @@ const GigCard = ({ item }) => {
             <img
               className="rounded-full h-[40px] w-[40px] !object-cover  "
               src={
-                user?.img ||
+                userImg ||
                 "/no_avatar.png"
               }
               alt="img"

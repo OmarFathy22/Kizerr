@@ -58,6 +58,10 @@ const Profile = () => {
   if (loadingInfo || loadingGigs) return <Loading/>;
   if (errorInfo || errorGigs) return "An error has occurred: ";
   const Info = () => {
+    // insure that the url is https not http
+    const userImg = user?.img?.includes("https")
+      ? user?.img
+      : user?.img?.replace("http", "https");
     return (
       <div className="w-[35%] max-w-[450px] max-900:px-4 max-900:w-full">
         {/* Profile Card */}
@@ -70,7 +74,7 @@ const Profile = () => {
             <div className="">
               <img
                 className="rounded-full overflow-hidden sm:w-[130px] sm:h-[130px] w-40 h-40 object-cover  "
-                src={user?.img}
+                src={userImg}
                 alt=""
               />
             </div>
