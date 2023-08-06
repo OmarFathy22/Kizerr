@@ -19,6 +19,7 @@ const Add = () => {
       queryClient.invalidateQueries("myGigs");
     },
   });
+  const User = JSON.parse(localStorage.getItem('currentUser'))
   const handleChange = (e) => {
     dispatch({
       type: "CHANGE_INPUT",
@@ -56,6 +57,9 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!state.username){
+      state.username = User?.username
+    }
     mutation.mutate(state);
     setCover(undefined);
     setImages([]);
