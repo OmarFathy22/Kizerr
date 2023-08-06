@@ -49,7 +49,7 @@ function Reviews(){
               <img
                 className=" rounded-full !object-cover h-[30px] w-[30px]"
                 src={item?.img || "/no_avatar.png"}
-                alt="hhh"
+                alt=""
               />
               <div>
                 <h1 className="font-semibold text-[#555]">{item?.username}</h1>

@@ -84,7 +84,7 @@ const Profile = () => {
             </div>
             <button
               onClick={handleContact}
-              className="p-[10px] px-[30px] sm:px-2 mt-[20px] border border-gray-500  rounded-md hover:text-white hover:bg-[#888] transition-all "
+              className="p-[10px] px-[30px] sm:px-2 mt-[20px] border border-gray-500  rounded-md hover:text-white  hover:bg-[#888] transition-shadow shadow-sm   "
             >
               Contact Me
             </button>
@@ -147,7 +147,7 @@ const Profile = () => {
           }`}
         >
           <Link to={"/add"} className="rounded-sm max-900:hidden">
-            <div className="w-[320px] mt-[50px] h-[391px] shadow-lg flex justify-center items-center border rounded-sm flex-col gap-2 bg-white">
+            <div className="w-[320px] mt-[50px] h-[430px] shadow-lg flex justify-center items-center border rounded-sm flex-col gap-2 bg-white">
               <div className="w-[100px] h-[100px] rounded-full bg-[#333] relative text-white">
                 <IoAdd className="!text-white text-[50px] absolute Center" />
               </div>

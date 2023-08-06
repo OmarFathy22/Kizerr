@@ -283,15 +283,16 @@ const CreateReview = ({ gig }) => {
   const [selectedStar, setSelectedStar] = useState(0);
   const [desc, setDesc] = useState("");
   const [error, setError] = useState("");
+  const User = JSON.parse(localStorage.getItem("currentUser")) || {};
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newReview = {
       star: selectedStar + 1,
       desc: desc,
       gigId: gig?._id,
-      username: JSON.parse(localStorage.getItem("currentUser")).username,
-      country: JSON.parse(localStorage.getItem("currentUser")).country,
-      img: JSON.parse(localStorage.getItem("currentUser")).img,
+      username: User?.username,
+      country: User?.country,
+      img: User?.img || "",
     };
     setSelectedStar(0);
     setDesc("");

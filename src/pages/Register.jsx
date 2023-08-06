@@ -43,7 +43,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let url = null;
+    let url = "";
     if (file) {
       url = await upload(file);
     }
