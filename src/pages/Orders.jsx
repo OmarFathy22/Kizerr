@@ -77,7 +77,7 @@ const Index = () => {
                     />
                   </td>
                   <td className={`w-[calc(100%/6)] `}>
-                    <h3>{order?.title?.slice(0,Math.min(order?.title?.length , 10) )}</h3>
+                    <h3>{order?.title?.slice(0,Math.min(order?.title?.length , 10) )+"..."}</h3>
                   </td>
                   <td className={`w-[calc(100%/6)] `}>
                     <p>${order?.price}</p>
