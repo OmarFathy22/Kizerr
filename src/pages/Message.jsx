@@ -143,7 +143,7 @@ const Index = () => {
           "max-1200:!block max-1200:fixed max-1200:!top-0 max-1200:!bottom-0 max-1200:!left-0 max-1200:!w-[70%] max-1200:max-w-[400px] max-1200:!z-[2000]"
         } bg-gray-100  border-r border-r-gray-300`}
       >
-        <div className="max-1200:w-[70%] max-1200:max-w-[400px] flex justify-between h-[100px] items-center border-b border-gray-300 px-4 fixed right-[75%] top-0 left-0   ">
+        <div className="max-1200:w-[70%] max-1200:max-w-[400px] flex justify-between sm:h-[70px] h-[100px] items-center border-b border-gray-300 px-4 fixed right-[75%] top-0 left-0   ">
           <Link to={"/messages"} className="font-bold text-[35px]">
             Chats
           </Link>
@@ -159,7 +159,7 @@ const Index = () => {
           </div> */}
         </div>
 
-        <div className="mt-[100px] ">
+        <div className="mt-[100px] sm:mt-[70px] ">
           {AllConversations?.map((item, index) => (
             <div
               onClick={() => {
@@ -168,12 +168,12 @@ const Index = () => {
               key={index}
               className={`${
                 id == item?.id && "bg-gray-300"
-              } cursor-pointer  truncate flex justify-between h-[100px] items-center border-b border-gray-300 px-4`}
+              } cursor-pointer  truncate flex justify-between  h-[100px] items-center border-b border-gray-300 px-4`}
             >
               <div className="flex gap-3">
                 <img
                   src={
-                    (User.isSeller ? item?.buyerImg : item?.sellerImg) ||
+                    (User?.isSeller ? item?.buyerImg : item?.sellerImg) ||
                     "/no_avatar.png"
                   }
                   alt="jj"
@@ -182,7 +182,7 @@ const Index = () => {
                 <div className="">
                   <div className="flex gap-1 items-center relative">
                     <h1 className="font-bold text-[20px]">
-                      {User.isSeller
+                      {User?.isSeller
                         ? item?.buyerUsername
                         : item?.sellerUsername}
                     </h1>
@@ -213,11 +213,11 @@ const Index = () => {
 
       <div
         ref={ConvRef}
-        className="w-[75%] max-1200:w-full overflow-auto mb-[100px]"
+        className="w-[75%] max-1200:w-full  overflow-auto sm:mb-[70px] sm:pb-[70px] pb-[100px] mb-[100px]"
       >
         <div className="">
           <div
-            className={`border-b justify-between border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0 h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
+            className={`border-b justify-between border-gray-300 fixed left-[25%] max-1200:left-0 top-0 right-0  sm:h-[70px] h-[100px] bg-gray-50 px-[15px]  items-center flex gap-3`}
           >
             <div
               onClick={() => {
@@ -340,7 +340,7 @@ const Index = () => {
         )}
         <form
           onSubmit={handleSubmit}
-          className=" flex items-center justify-between fixed bottom-0 h-[100px] border-t border-gray-300 px-10 sm:px-2 bg-gray-50 right-0 left-[25%] max-1200:left-0 gap-5 "
+          className=" flex items-center justify-between fixed bottom-0  sm:h-[70px] h-[100px]  border-t   border-gray-300 px-10 sm:px-2 bg-gray-50 right-0 left-[25%] max-1200:left-0 gap-5 "
         >
           {showEmoji && (
             <div className="absolute top-[-437px] left-[100px]">
