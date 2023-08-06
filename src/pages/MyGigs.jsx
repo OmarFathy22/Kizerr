@@ -48,7 +48,7 @@ const Index = () => {
               <tr className={`${index % 2 === 0 && "bg-[#1dbf730f]"} `}>
                 <td className="p-[10px] ">
                   <img
-                    className="h-[40px] w-[70px] object-contain cursor-pointer"
+                    className="h-[40px] w-[70px] object-cover cursor-pointer"
                     onClick={() => {
                       navigate(`/gig/${gig._id}`);
                     }}

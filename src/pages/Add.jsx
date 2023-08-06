@@ -19,7 +19,6 @@ const Add = () => {
       queryClient.invalidateQueries("myGigs");
     },
   });
-  console.log(state)
   const handleChange = (e) => {
     dispatch({
       type: "CHANGE_INPUT",

@@ -54,11 +54,9 @@ const Career = () => {
            onMouseOver={() => {
             setIsHovering("borderBottom");
             setCurrItem(index);
-            console.log("hovering");
            }}
             onMouseLeave={() => {
               setIsHovering("");
-              console.log("not hovering");
             }}
 
           to={"/"} key={index} className='flex flex-col justify-center items-center'>

@@ -133,7 +133,14 @@ const AboutSellerHeader = ({ seller }) => {
   const navigate = useNavigate();
   const User = JSON.parse(localStorage.getItem("currentUser"));
   const handleContact = async () => {
-    if (!User || User._id === seller?._id) {
+    if(!User){
+      setError("You must login first");
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return;
+    }
+    if (User._id === seller?._id) {
       setError("You can't contact yourself");
       setTimeout(() => {
         setError(null);
@@ -145,6 +152,12 @@ const AboutSellerHeader = ({ seller }) => {
       const res = await NewRequest.get(`/getConversation/${id}`);
       navigate(`/message/${res.data.id}`);
     } catch (error) {
+      if(error.response.status === 401){
+        setError("You must login first");
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      }
       if (error.response.status === 404) {
         const res = await NewRequest.post(`/createConversation`, {
           to: seller?._id,
@@ -192,7 +205,7 @@ const AboutSellerHeader = ({ seller }) => {
             Contact Me
           </button>
           {error && (
-            <div className="text-red-500 font-medium text-[15px]">{error}</div>
+            <div className="text-red-500 font-medium text-center  w-full text-[15px]">{error}</div>
           )}
         </div>
       </div>

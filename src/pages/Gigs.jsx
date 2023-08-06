@@ -134,7 +134,7 @@ const Gigs = () => {
           })}
         </ul>
       ) : (
-        <div className="flex justify-center min-h-[300px]  !h-full  items-center mt-10">
+        <div className="flex justify-center min-h-[300px]   !h-full  items-center mt-10">
           <p className="text-[#888] sm:text-[20px] text-[30px]">{NoGigs}</p>
         </div>
       )}

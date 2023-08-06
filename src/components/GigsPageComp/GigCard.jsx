@@ -18,7 +18,7 @@ const GigCard = ({ item }) => {
       <Link
         key={item._id}
         to={`/gig/${item?._id}`}
-        className="flex flex-col gap-2 border-[1px] border-[#d2cccc] shadow-lg rounded-sm mt-[50px] max-w-[320px]  "
+        className="flex flex-col gap-2 border-[1px] border-[#d2cccc] shadow-lg rounded-sm mt-[50px] w-[320px]  "
       >
         <div className="">
           <img

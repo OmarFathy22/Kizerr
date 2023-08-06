@@ -1,7 +1,6 @@
 import { AiFillStar } from "react-icons/ai";
 
 const GigUser = ({ gig, seller }) => {
-  console.log("from GigUser", seller);
   return (
     <div className="flex gap-3">
       <div className=" flex items-center gap-3">
@@ -51,7 +50,6 @@ const Category = ({ gig }) => {
 };
 
 const MainContent = ({ gig, seller }) => {
-  console.log("from MainContent", seller);
   return (
     <div className="flex-[2] xl:max-w-[60%] sm-md:w-full flex flex-col gap-[20px]">
       {seller && (

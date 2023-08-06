@@ -15,7 +15,6 @@ const Signin = () => {
       localStorage.setItem("currentUser", JSON.stringify(res.data))
       Cookies.set('accessToken', 'unique_user_identifier', { path: '/' });
       navigate('/')
-      console.log(res.data)
     } 
     catch(err){
       setError(err.response.data)

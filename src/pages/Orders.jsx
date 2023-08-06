@@ -24,7 +24,6 @@ const Index = () => {
     const buyerId = order.buyerId;
     const id = order.sellerId + order.buyerId;
    const seconduser =   await NewRequest(`users/${User.isSeller ?buyerId : sellerId}`).then((res) => res.data)
-   console.log(seconduser)
     try {
       const res = await NewRequest.get(`/getConversation/${id}`);
       navigate(`/message/${res.data.id}`);
@@ -78,7 +77,7 @@ const Index = () => {
                     />
                   </td>
                   <td className={`w-[calc(100%/6)] `}>
-                    <h3>{order?.title}</h3>
+                    <h3>{order?.title?.slice(0,Math.min(order?.title?.length , 10) )}</h3>
                   </td>
                   <td className={`w-[calc(100%/6)] `}>
                     <p>${order?.price}</p>

@@ -42,7 +42,7 @@ const Payment = () => {
     appearance,
   };
   if(isLoading)return <Loading/>
-  if(Error)return <h1 className=" h-[70vh] flex justify-center items-center font-bold p text-red-500">Something Went Wrong!</h1>
+  if(Error)return <h1 className=" h-[70vh] flex justify-center items-center font-bold p text-red-500">{"Something Went Wrong Or You're unauthorized!"}</h1>
   return (
     <div className="flex justify-center items-center min-h-[90vh]">
       {clientSecret && (
