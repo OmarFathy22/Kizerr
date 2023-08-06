@@ -130,7 +130,7 @@ const Index = () => {
     setChosenImage(undefined);
     setFileName("");
   };
-
+  console.log(import.meta.env.VITE_SECRET_MESSAGE)
   if (isLoading || isLoadingAllConvs || isLoadingConv) return <Loading />;
   if (error || errorAllConvs || errorConv) return <h1>error</h1>;
   return (
