@@ -302,7 +302,7 @@ const Index = () => {
                       <p
                         dir="ltr"
                         className={`w-full ${message?.img && "mt-2"} ${
-                          message?.desc.length < 10 &&
+                          message?.desc?.length < 10 &&
                           !message?.img &&
                           "text-center"
                         }`}
