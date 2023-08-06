@@ -95,11 +95,13 @@ const Index = () => {
   useEffect(() => {
     if (ConvRef.current) {
       ConvRef.current.scrollTo({
-        top: ConvRef.current.scrollHeight + 1000
+        top: ConvRef.current.scrollHeight + 1000,
       });
     }
   }, [messages]);
 
+  const VITE_SECRET_MESSAGE =
+    "L1ne1_Th!sI5A-V3ryStr0ngK3y-N0b0dyC4nGue55-Th3Secr3tK3y1-sC0mpletelyRan-d0mAndUnpredi-ctable2Y0u-Keep1tSaf3And-SecureAtAllTi-m3s3t3cureK3y-isEssential4Da-taProtection-Practic3Str0ng-KeyMaNagement-St0reItInASec-ureVault7OrLo";
   const handleConv = async (item) => {
     navigate(`/message/${item?.id}`);
   };
@@ -119,7 +121,7 @@ const Index = () => {
       desc: MESSAGE
         ? MESSAGE
         : fileName
-        ? import.meta.env.VITE_SECRET_MESSAGE
+        ? VITE_SECRET_MESSAGE
         : "No messages yet",
       conversationId: id,
       img: media,
@@ -130,7 +132,7 @@ const Index = () => {
     setChosenImage(undefined);
     setFileName("");
   };
-  console.log(import.meta.env.VITE_SECRET_MESSAGE)
+  console.log(VITE_SECRET_MESSAGE);
   if (isLoading || isLoadingAllConvs || isLoadingConv) return <Loading />;
   if (error || errorAllConvs || errorConv) return <h1>error</h1>;
   return (
@@ -190,10 +192,9 @@ const Index = () => {
                   <h1 className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
                     {(item?.lastMessage !==
                       // @ts-ignore
-                      import.meta.env.VITE_SECRET_MESSAGE &&
+                      VITE_SECRET_MESSAGE &&
                       item?.lastMessage) ||
-                      (item?.lastMessage ===
-                        import.meta.env.VITE_SECRET_MESSAGE && (
+                      (item?.lastMessage === VITE_SECRET_MESSAGE && (
                         <div className="flex items-center gap-1 text-gray-400">
                           <MdInsertPhoto /> <h1>photo</h1>
                         </div>
@@ -307,7 +308,7 @@ const Index = () => {
                           "text-center"
                         }`}
                       >
-                        {message?.desc !== import.meta.env.VITE_SECRET_MESSAGE
+                        {message?.desc !== VITE_SECRET_MESSAGE
                           ? message?.desc
                           : ""}
                       </p>
