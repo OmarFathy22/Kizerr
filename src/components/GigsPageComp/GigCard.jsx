@@ -16,7 +16,7 @@ const GigCard = ({ item }) => {
   return (
     <div>
       <Link
-        key={item._id}
+        key={item?._id}
         to={`/gig/${item?._id}`}
         className="flex flex-col gap-2 border-[1px] border-[#d2cccc] shadow-lg rounded-sm mt-[50px] w-[320px]  "
       >
@@ -45,7 +45,7 @@ const GigCard = ({ item }) => {
             </h1>
           </div>
           <p className="truncate">
-            {item.title ||  "I will create a professional logo design for your brand"}
+            {item?.title ||  "I will create a professional logo design for your brand"}
           </p>
           <div className="text-[#ffc108] flex items-center gap-1  ">
             <AiFillStar />
@@ -60,7 +60,7 @@ const GigCard = ({ item }) => {
           <div className="flex flex-col justify-center items-center">
             <p>STARTING AT</p>{" "}
             <p>
-              {item.price} <sup>99</sup>
+              {item?.price} <sup>99</sup>
             </p>
           </div>
         </div>

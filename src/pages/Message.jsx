@@ -95,13 +95,12 @@ const Index = () => {
   useEffect(() => {
     if (ConvRef.current) {
       ConvRef.current.scrollTo({
-        top: ConvRef.current.scrollHeight + 1000,
+        top: ConvRef.current.scrollHeight + 1000
       });
     }
   }, [messages]);
 
-  const VITE_SECRET_MESSAGE =
-    "L1ne1_Th!sI5A-V3ryStr0ngK3y-N0b0dyC4nGue55-Th3Secr3tK3y1-sC0mpletelyRan-d0mAndUnpredi-ctable2Y0u-Keep1tSaf3And-SecureAtAllTi-m3s3t3cureK3y-isEssential4Da-taProtection-Practic3Str0ng-KeyMaNagement-St0reItInASec-ureVault7OrLo";
+  const VITE_SECRET_MESSAGE = "L1ne1_Th!sI5A-V3ryStr0ngK3y-N0b0dyC4nGue55-Th3Secr3tK3y1-sC0mpletelyRan-d0mAndUnpredi-ctable2Y0u-Keep1tSaf3And-SecureAtAllTi-m3s3t3cureK3y-isEssential4Da-taProtection-Practic3Str0ng-KeyMaNagement-St0reItInASec-ureVault7OrLo"
   const handleConv = async (item) => {
     navigate(`/message/${item?.id}`);
   };
@@ -121,7 +120,7 @@ const Index = () => {
       desc: MESSAGE
         ? MESSAGE
         : fileName
-        ? VITE_SECRET_MESSAGE
+        ? VITE_SECRET_MESSAGE 
         : "No messages yet",
       conversationId: id,
       img: media,
@@ -132,7 +131,7 @@ const Index = () => {
     setChosenImage(undefined);
     setFileName("");
   };
-  console.log(VITE_SECRET_MESSAGE);
+  console.log(VITE_SECRET_MESSAGE )
   if (isLoading || isLoadingAllConvs || isLoadingConv) return <Loading />;
   if (error || errorAllConvs || errorConv) return <h1>error</h1>;
   return (
@@ -192,9 +191,10 @@ const Index = () => {
                   <h1 className="text-gray-500 text-[17px] max-w-[250px] truncate  ">
                     {(item?.lastMessage !==
                       // @ts-ignore
-                      VITE_SECRET_MESSAGE &&
+                      VITE_SECRET_MESSAGE  &&
                       item?.lastMessage) ||
-                      (item?.lastMessage === VITE_SECRET_MESSAGE && (
+                      (item?.lastMessage ===
+                        VITE_SECRET_MESSAGE  && (
                         <div className="flex items-center gap-1 text-gray-400">
                           <MdInsertPhoto /> <h1>photo</h1>
                         </div>
@@ -231,7 +231,7 @@ const Index = () => {
               <div className="">
                 <img
                   src={
-                    (User.isSeller ? Conv.buyerImg : Conv.sellerImg) ||
+                    (User?.isSeller ? Conv?.buyerImg : Conv?.sellerImg) ||
                     "/no_avatar.png"
                   }
                   alt=""
@@ -240,7 +240,7 @@ const Index = () => {
               </div>
               <div className="flex gap-1 items-center ">
                 <h1 className="font-bold text-[20px]">
-                  {(User.isSeller ? Conv.buyerUsername : Conv.sellerUsername) ||
+                  {(User?.isSeller ? Conv?.buyerUsername : Conv?.sellerUsername) ||
                     "user"}
                 </h1>
                 <div className=" bg-[--primaryColor]  translate-y-1 h-2 w-2 rounded-full" />
@@ -308,7 +308,7 @@ const Index = () => {
                           "text-center"
                         }`}
                       >
-                        {message?.desc !== VITE_SECRET_MESSAGE
+                        {message?.desc !== VITE_SECRET_MESSAGE 
                           ? message?.desc
                           : ""}
                       </p>
@@ -324,7 +324,7 @@ const Index = () => {
                             : "text-gray-500"
                         }`}
                       >
-                        {moment(message.createdAt).format("LT")}
+                        {moment(message?.createdAt).format("LT")}
                       </p>
                     </div>
                   </div>

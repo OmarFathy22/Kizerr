@@ -187,7 +187,7 @@ const AboutSellerHeader = ({ seller }) => {
             to={`/profile/${seller?._id}`}
             className="text-[20px] font-bold"
           >
-            {seller.username}
+            {seller?.username}
           </Link>
           <h1 className="text-[18px] text-[#555] font-medium">
             {seller?.title || "AI Art Expert"}

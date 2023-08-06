@@ -86,8 +86,8 @@ const SlickSlider = () => {
       Inspiring work made on Fiverr
       </h1>
         <Slider {...settings} className="pl-[20px]   w-[80%] sm:w-[400px]  mx-auto ">
-        {projects.map((card) => (
-            <ProjectCard key={card.id} card={card} />
+        {projects?.map((card) => (
+            <ProjectCard key={card?.id} card={card} />
           ))}
         </Slider>
       </div>

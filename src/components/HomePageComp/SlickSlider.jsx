@@ -70,8 +70,8 @@ const SlickSlider = () => {
       <div className="">
         <h2> Responsive </h2>
         <Slider {...settings} className="border pl-[20px] w-[85%] mx-auto ">
-        {projects.map((card) => (
-            <ProjectCard key={card.id} card={card} />
+        {projects?.map((card) => (
+            <ProjectCard key={card?.id} card={card} />
           ))}
         </Slider>
       </div>

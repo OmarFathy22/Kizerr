@@ -50,21 +50,21 @@ const Index = () => {
                   <img
                     className="h-[40px] w-[70px] object-cover cursor-pointer"
                     onClick={() => {
-                      navigate(`/gig/${gig._id}`);
+                      navigate(`/gig/${gig?._id}`);
                     }}
-                    src={gig.cover}
+                    src={gig?.cover}
                     alt=""
                   />
                 </td>
                 <td className="truncate sm:hidden">
-                  <h3>{gig.title}</h3>
+                  <h3>{gig?.title}</h3>
                 </td>
                 <td className="">
-                  <p>${gig.price}</p>
+                  <p>${gig?.price}</p>
                 </td>
                 <td className="">
                   {" "}
-                  <p>{gig.sales} </p>
+                  <p>{gig?.sales} </p>
                 </td>
                 <td className="text-red-600 text-[30px] sm:text-[20px]">
                   <button

@@ -11,6 +11,7 @@ const Index = () => {
     queryKey: "Conversation",
     queryFn: () => NewRequest(`/getAllConversations`).then((res) => res.data),
   });
+  const VITE_SECRET_MESSAGE = "L1ne1_Th!sI5A-V3ryStr0ngK3y-N0b0dyC4nGue55-Th3Secr3tK3y1-sC0mpletelyRan-d0mAndUnpredi-ctable2Y0u-Keep1tSaf3And-SecureAtAllTi-m3s3t3cureK3y-isEssential4Da-taProtection-Practic3Str0ng-KeyMaNagement-St0reItInASec-ureVault7OrLo"
   const User = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -41,33 +42,33 @@ const Index = () => {
               </tr>
             </tbody>
             {Conversations?.map((c, index) => {
-              const lastMessage = c?.lastMessage.slice(0,50) + (c.lastMessage.length > 50 ? "..." : "");
+              const lastMessage = c?.lastMessage.slice(0,50) + (c?.lastMessage?.length > 50 ? "..." : "");
               return (
                 <tbody key={index}>
                   <tr
                     className={`${
-                      ((User.isSeller && !c.readBySeller) ||
-                        (!User.isSeller && !c.readByBuyer)) &&
+                      ((User?.isSeller && !c?.readBySeller) ||
+                        (!User?.isSeller && !c?.readByBuyer)) &&
                       "bg-[#1dbf730f]"
                     }  mx-10 `}
                   >
                     <td className="px-5 py-5  ">
                       <h3 className="font-bold ">
-                        {User.isSeller ? c?.buyerUsername : c?.sellerUsername}
+                        {User?.isSeller ? c?.buyerUsername : c?.sellerUsername}
                       </h3>
                     </td>
                     <td
                       onClick={() => {
-                        navigate(`/message/${c.id}`);
+                        navigate(`/message/${c?.id}`);
                       }}
                       className=" pt-[20px] line-clamp-1 max-w-[900px] cursor-pointer"
                     >
                       <p>  {(c?.lastMessage !==
                       // @ts-ignore
-                      import.meta.env.VITE_SECRET_MESSAGE &&
+                      VITE_SECRET_MESSAGE  &&
                       c?.lastMessage) ||
                       (c?.lastMessage ===
-                        import.meta.env.VITE_SECRET_MESSAGE && (
+                        VITE_SECRET_MESSAGE  && (
                         <div className="flex items-center gap-1 text-gray-400">
                           <MdInsertPhoto /> <h1>photo</h1>
                         </div>

@@ -80,8 +80,8 @@ const SlickSlider = () => {
         Popular Services
       </h1>
         <Slider {...settings} className=" w-[80%]   mx-auto ">
-        {cards.map((card) => (
-            <ServiceCard key={card.id} card={card} />
+        {cards?.map((card) => (
+            <ServiceCard key={card?.id} card={card} />
           ))}
         </Slider>
       </div>

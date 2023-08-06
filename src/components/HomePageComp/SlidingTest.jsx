@@ -32,7 +32,7 @@ export default function Slider({ slides }) {
         Next
       </button>
       <div className="slider-dots">
-        {slides.map((slide, index) => (
+        {slides?.map((slide, index) => (
           <button
             key={index}
             className={`slider-dot ${index === currentSlide ? "active" : ""}`}
