@@ -63,6 +63,7 @@ const Register = () => {
     } catch (err) {
       console.log(err);
       setError(err.response.data);
+      setLoading(false);
       setTimeout(() => {
         setError(null);
       }, 10000);
