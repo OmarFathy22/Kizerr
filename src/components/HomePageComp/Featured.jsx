@@ -71,20 +71,22 @@ function Featured() {
           </button>
         </form>
 
-        <ul className="w-full">
-          <h6 className="inline-block text-white text-[15px] sm:block sm:text-center sm:mb-2 sm:text-[10px] font-semibold">
+        <div className="w-full sm-md:flex sm-md:flex-col sm-md:justify-center">
+          <h6 className="inline-block text-white text-[15px] sm-md:block sm-md:text-center sm-md:mb-2 sm-md:text-[10px] font-semibold">
             Popular: &nbsp;
           </h6>
 
-          {Popular.map((item, index) => (
-            <li
-              key={index}
-              className="mb-2 inline-block border-[1px] mr-2 sm:!text-[8px] hover:bg-white transition-all hover:text-black cursor-pointer border-white rounded-full p-[5px] px-[10px] text-white text-[8px] sm-md:text-[10px] lg:text-[17px] font-semibold"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+      <ul className="lg:inline-block sm-md:flex sm-md:justify-center sm-md:w-full">
+            {Popular.map((item, index) => (
+              <li
+                key={index}
+                className="mb-2 inline-block border-[1px] mr-2 sm:!text-[8px] hover:bg-white transition-all hover:text-black cursor-pointer border-white rounded-full p-[5px] px-[10px] text-white text-[8px] sm-md:text-[10px] lg:text-[17px] font-semibold"
+              >
+                {item}
+              </li>
+            ))}
+      </ul>
+        </div>
       </div>
       <div className="absolute bottom-[120px] sm-md:hidden right-[60px]">
         {(index%2 === 1) && <p className="flex gap-1 text-[var(--starColor)] text-[20px]">
