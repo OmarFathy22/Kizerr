@@ -14,7 +14,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@glidejs/glide": "^3.6.0",
     "@stripe/react-stripe-js": "^2.1.1",
-    "@stripe/stripe-js": "^1.54.1",
+    "@stripe/stripe-js": "^1.54.2",
     "axios": "^1.4.0",
     "emoji-mart": "^5.5.2",
     "glide": "^0.2.0",
