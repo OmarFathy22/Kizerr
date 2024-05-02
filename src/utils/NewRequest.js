@@ -1,9 +1,7 @@
 import axios from "axios"
 
  const NewRequest = axios.create({
-  // baseURL: 'https://kizerrpi.onrender.com',
-  baseURL:'https://kizerr-api-production.up.railway.app',
-  // baseURL: 'http://localhost:3000', 
+  baseURL:'https://kizerr-backend.onrender.com',
   withCredentials: true
 })
 
